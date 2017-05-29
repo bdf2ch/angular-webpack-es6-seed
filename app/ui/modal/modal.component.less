@@ -1,3 +1,125 @@
+@modal-background-color: rgba(0, 0, 0, 0.3);
+@modal-header-controls-height: 30px;
+@modal-header-controls-color: #1565C0;
+@modal-header-controls-size: 13px;
+@modal-header-content-height: 90px;
+@modal-header-icon-background-color: #90CAF9;
+@modal-header-icon-color: #1E88E5;
+@modal-header-title-size: 18px;
+@modal-header-title-color: #0D47A1;
+@modal-header-description-size: 13px;
+@modal-header-description-color: #1E88E5;
+@modal-header-background-color: #BBDEFB;
+
+.modal-background {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: @modal-background-color;
+  z-index: 100;
+}
+
 .modal-component {
+  border-radius: 2px;
+  box-shadow: 0 1px 30px rgba(0,0,0,0.15);
+
+  .modal-header {
+    height: auto;
+    background: @modal-header-background-color;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+
+    .header-controls {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      height: @modal-header-controls-height;
+      padding-left: 20px;
+      padding-right: 20px;
+      padding-top: 10px;
+
+      .title {
+        font-family: 'Roboto Bold';
+        font-size: 11px;
+        text-transform: uppercase;
+        color: @modal-header-controls-color;
+      }
+
+      .control {
+        font-size: @modal-header-controls-size;
+        //text-decoration: underline;
+        color: @modal-header-controls-color;
+        border-bottom: 1px dotted @modal-header-controls-color;
+        cursor: pointer;
+        &:hover {
+          color: @modal-header-title-color;
+        }
+      }
+    }
+
+    .header-content {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      height: @modal-header-content-height;
+      //padding: 10px;
+      padding-left: 20px;
+      padding-right: 20px;
+      box-sizing: border-box;
+
+      .fa {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+        width: 50px !important;
+        height: 50px !important;
+        //padding: 10px;
+        box-sizing: border-box;
+        margin-right: 20px;
+        //text-align: center;
+        font-size: 30px;
+        //line-height: 50px;
+        color: @modal-header-icon-color;
+        background: @modal-header-icon-background-color;
+        border-radius: 50%;
+      }
+
+      .details {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+
+        .title {
+          font-size: @modal-header-title-size;
+          color: @modal-header-title-color;
+        }
+
+        .description {
+          font-size: @modal-header-description-size;
+          color: @modal-header-description-color;
+        }
+      }
+
+    }
+  }
+
+  .modal-content {
+    overflow: auto;
+    height: 200px;
+    background: white;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+  }
 
 }

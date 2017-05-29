@@ -1,0 +1,94 @@
+.modal-background {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 100;
+}
+.modal-component {
+  border-radius: 2px;
+  box-shadow: 0 1px 30px rgba(0, 0, 0, 0.15);
+}
+.modal-component .modal-header {
+  height: auto;
+  background: #BBDEFB;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+}
+.modal-component .modal-header .header-controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+}
+.modal-component .modal-header .header-controls .title {
+  font-family: 'Roboto Bold';
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #1565C0;
+}
+.modal-component .modal-header .header-controls .control {
+  font-size: 13px;
+  color: #1565C0;
+  border-bottom: 1px dotted #1565C0;
+  cursor: pointer;
+}
+.modal-component .modal-header .header-controls .control:hover {
+  color: #0D47A1;
+}
+.modal-component .modal-header .header-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 90px;
+  padding-left: 20px;
+  padding-right: 20px;
+  box-sizing: border-box;
+}
+.modal-component .modal-header .header-content .fa {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  width: 50px !important;
+  height: 50px !important;
+  box-sizing: border-box;
+  margin-right: 20px;
+  font-size: 30px;
+  color: #1E88E5;
+  background: #90CAF9;
+  border-radius: 50%;
+}
+.modal-component .modal-header .header-content .details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.modal-component .modal-header .header-content .details .title {
+  font-size: 18px;
+  color: #0D47A1;
+}
+.modal-component .modal-header .header-content .details .description {
+  font-size: 13px;
+  color: #1E88E5;
+}
+.modal-component .modal-content {
+  overflow: auto;
+  height: 200px;
+  background: white;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+}

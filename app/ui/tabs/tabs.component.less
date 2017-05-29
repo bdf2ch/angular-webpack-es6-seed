@@ -1,0 +1,54 @@
+@tabs-container-height: 50px;
+@tabs-tab-title-size: 12px;
+@tabs-tab-color: #1E88E5;
+@tabs-tab-color-active: #0D47A1;
+
+.tabs-component {
+  height: 100%;
+
+  .tabs-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-end;
+    height: @tabs-container-height;
+    padding-left: 5px;
+    box-sizing: border-box;
+    //background: red;
+
+    .tab {
+      float: left;
+      height: @tabs-container-height - 15px;
+      margin-right: 5px;
+      padding-top: 5px;
+      padding-left: 10px;
+      padding-right: 10px;
+      box-sizing: border-box;
+      font-size: @tabs-tab-title-size;
+      line-height: @tabs-container-height - 15px;
+      text-transform: uppercase;
+      text-align: center;
+      color: @tabs-tab-color;
+      border-left: 1px solid lightgray;
+      border-top: 1px solid lightgray;
+      border-right: 1px solid lightgray;
+      border-top-left-radius: 2px;
+      border-top-right-radius: 2px;
+      cursor: pointer;
+
+      &.active {
+        height: @tabs-container-height - 10;
+        margin-bottom: -1px;
+        font-family: "Roboto Bold";
+        line-height: @tabs-container-height - 20px;
+        color: @tabs-tab-color-active;
+        border-bottom: 1px solid white;
+        cursor: default;
+      }
+    }
+  }
+
+  .tabs-content {
+    border-top: 1px solid lightgray;
+  }
+}

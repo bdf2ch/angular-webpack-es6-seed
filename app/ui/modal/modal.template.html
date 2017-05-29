@@ -1,4 +1,18 @@
-<div class="modal-component">
-    <div class="modal-header"></div>
-    <div class="modal-content" ng-transclude></div>
+<div class="modal-background" ng-if="$ctrl.modalOpened === true" ng-style="{ 'z-index': 5000 + $ctrl.modalDepth }" ng-cloak>
+    <div class="modal-component" ng-style="{ 'width': $ctrl.modalWidth }">
+        <div class="modal-header">
+            <div class="header-controls">
+                <span class="title">{{ $ctrl.title }}</span>
+                <span class="control" title="Закрыть" ng-click="$ctrl.close()">Закрыть</span>
+            </div>
+            <div class="header-content">
+                <i ng-show="$ctrl.modalIcon !== ''" class="{{ 'fa ' + $ctrl.modalIcon }}"></i>
+                <div class="details">
+                    <div class="title">{{ $ctrl.modalCaption }}</div>
+                    <div class="description" ng-show="$ctrl.modalDescription !== ''">{{ $ctrl.modalDescription }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-content" ng-style="{'height': $ctrl.modalHeight}" ng-transclude></div>
+    </div>
 </div>

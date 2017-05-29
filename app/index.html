@@ -3,12 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="dist/styles.css">
 </head>
 <body>
 <script src="dist/app.bundle.js"></script>
+<script src="dist/common.bundle.js"></script>
 <violations-list></violations-list>
-<modal title="Test modal component">some content here</modal>
 
-<div ng-controller="TestController"></div>
+
+
+
+<div ng-controller="TestController">
+
+
+    <button ng-click="openModal()" title="open modal">open modal</button>
+    <modal title="управление пользователями"
+           id="test-modal"
+           width="450"
+           height="500"
+           depth="5"
+           caption="Добавление нового пользователя"
+           description="Укажите данные нового пользователя"
+           icon="fa fa-user"
+           on-open="onOpenModal()"
+           ng-cloak>
+        <tabs>
+            <tab id="tab1" title="Данные пользователя" width="50%">
+                first tab content
+                <button ng-click="openSecondModal()">Open second modal</button>
+            </tab>
+            <tab id="tab3" title="Права пользователя" width="50%">third tab content</tab>
+        </tabs>
+        <modal id="second-modal" depth="6" title="новый пользователь" width="350" height="350" caption="Выберите структурное подразделение" icon="fa fa-building" on-close="this.onCloseModal()"></modal>
+    </modal>
+</div>
 </body>
 </html>

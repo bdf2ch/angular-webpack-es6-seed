@@ -3,12 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-</head>
+    <link rel="stylesheet" href="dist/styles.css">
+<link href="styles.css" rel="stylesheet"></head>
 <body>
 <script src="dist/app.bundle.js"></script>
+<script src="dist/common.bundle.js"></script>
 <violations-list></violations-list>
-<modal>some content here</modal>
 
-<div ng-controller="TestController"></div>
-<script type="text/javascript" src="app.bundle.js"></script></body>
+
+
+
+<div ng-controller="TestController">
+    <modal id="second-modal" depth="6" title="новый пользователь" width="350" height="350" caption="Выберите структурное подразделение" icon="fa fa-building" on-close="this.onCloseModal()">
+        <tabs>
+            <tab title="tab1"></tab>
+        </tabs>
+    </modal>
+
+
+
+    <button ng-click="openModal()" title="open modal">open modal</button>
+    <modal title="управление пользователями"
+           id="test-modal"
+           width="450"
+           height="500"
+           depth="5"
+           caption="Добавление нового пользователя"
+           description="Укажите данные нового пользователя"
+           icon="fa fa-user"
+           on-open="onOpenModal()"
+           ng-cloak>
+        <div style="padding: 20px;"><input type="text" name="" id=""></div>
+        <div style="padding: 20px;"><input type="text" name="" id=""></div>
+        <h1 style="padding:  50px;">test</h1>
+        <button ng-click="openSecondModal()">Open second modal</button>
+    </modal>
+</div>
+<script type="text/javascript" src="common.bundle.js"></script><script type="text/javascript" src="app.bundle.js"></script></body>
 </html>

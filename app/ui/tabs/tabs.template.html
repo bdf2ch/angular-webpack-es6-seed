@@ -1,0 +1,13 @@
+<div class="tabs-component">
+    <div class="tabs-container">
+        <div class="tab"
+             ng-repeat="tab in $ctrl.tabs track by $index"
+             ng-class="{ 'active': tab.tabActive === true }"
+             ng-style="{ 'width': tab.tabWidth }"
+             ng-click="$ctrl.select(tab)"
+             title="{{ tab.title }}">
+            {{ tab.title }}
+        </div>
+    </div>
+    <div class="tabs-content" ng-transclude></div>
+</div>
