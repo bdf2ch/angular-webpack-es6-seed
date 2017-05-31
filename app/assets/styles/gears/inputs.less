@@ -1,0 +1,29 @@
+@import (reference) 'paddings';
+
+@input-height: 30px;
+@input-font-size: 13px;
+@input-font-color: black;
+@input-background-color: transparent;
+@input-border-color: #CFD8DC;
+@label-font-color: #999;
+@label-font-size: 13px;
+
+input[type='text'] {
+  .padding-top-5;
+  .padding-bottom-5;
+  display: block;
+  height: @input-height;
+  box-sizing: border-box;
+  font-size: @input-font-size;
+  color: @input-font-color;
+  background: @input-background-color;
+  border: none;
+  border-bottom: 1px solid @input-border-color;
+  outline: none;
+}
+
+label {
+  display: inline-block;
+  font-size: @label-font-size;
+  color: @label-font-color;
+}

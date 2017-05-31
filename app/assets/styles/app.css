@@ -6,15 +6,27 @@
   font-family: "Roboto Bold";
   src: url("../fonts/Roboto-Bold.ttf");
 }
+html,
 body {
-  height: 100%;
-  background: white;
+  padding: 0px;
+  margin: 0px;
   font-family: 'Roboto Regular';
+  background: #ECEFF1;
 }
-input[type='text'] {
-  display: block;
-  width: 100%;
-  border: none;
-  border-bottom: 1px solid lightgray;
-  outline: none;
+#app-header {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  height: 70px;
+  background: #006064;
+}
+#app-wrapper {
+  overflow: auto;
+  position: absolute;
+  top: 70px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  box-sizing: border-box;
 }

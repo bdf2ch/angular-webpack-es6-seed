@@ -1,0 +1,33 @@
+.list-item {
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: 2px;
+  background: white;
+}
+.list-item .list-image .fa {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 25px;
+  text-align: center;
+  color: #0288D1;
+  border-radius: 50%;
+  background: #B3E5FC;
+}
+.list-item .list-content {
+  display: flex;
+  flex-direction: column;
+}
+.list-item .list-content .primary {
+  font-size: 15px;
+  color: #0277BD;
+}
+.list-item .list-content .secondary {
+  font-size: 14px;
+  color: #90A4AE;
+}

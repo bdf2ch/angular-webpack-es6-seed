@@ -23,7 +23,7 @@ export const ModalComponent = angular
         },
         transclude: true,
         controller: ['$log', 'ModalsService', function ($log, ModalsService) {
-            var modalOpened = this.modalOpened = true;
+            var modalOpened = this.modalOpened = false;
             var modalWidth = this.modalWidth = '300px';
             var modalHeight = this.modalHeight = '300px';
             var modalDepth = this.modalDepth = 1;

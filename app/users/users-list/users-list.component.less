@@ -1,0 +1,127 @@
+@import (reference) '../../assets/styles/gears/grid';
+@import (reference) '../../assets/styles/gears/margins';
+@import (reference) '../../assets/styles/gears/paddings';
+@import (reference) '../../assets/styles/gears/lists';
+
+
+#user-list-header {
+  display: flex;
+  flex-direction: row;
+}
+
+
+/* Target landscape smartphones, portrait tablets, narrow desktops */
+@media screen and (min-width: 320px) and (max-width: 800px) {
+  #user-list-header {
+    display: none;
+  }
+
+  #users-list {
+    .padding-10;
+    //background: red;
+
+    .user-name-position {
+      .width-100;
+      .position {
+        display: none;
+      }
+    }
+
+    .user-email {
+      display: none;
+    }
+
+    .user-account {
+      display: none;
+    }
+
+    .user-division {
+      display: none;
+    }
+  }
+}
+
+
+
+/* Target landscape tablets, desktops */
+@media screen and (min-width: 800px) and (max-width: 1400px) {
+  #user-list-header {
+    .padding-10;
+
+    .header-image {
+      .margin-right-20;
+      width: @list-item-image-width;
+    }
+
+    .header-user-name-position {
+      .width-33;
+    }
+
+    .header-user-email {
+      .width-33;
+      .margin-right-20;
+    }
+
+    .header-user-account {
+      display: none;
+    }
+
+    .header-user-division {
+      .width-33;
+    }
+  }
+
+  #users-list {
+    .padding-20;
+    //background: green;
+
+    .user-name-position {
+      .width-33;
+      .margin-right-20;
+      .division {
+        display: none;
+      }
+    }
+
+    .user-email {
+      .width-33;
+      .margin-right-20;
+    }
+
+    .user-account {
+      display: none;;
+    }
+
+    .user-division {
+      .width-33;
+    }
+  }
+}
+
+
+/* Target big displays */
+@media screen and (min-width: 1400px) {
+  #users-list {
+    .padding-20;
+
+    .user-name-position {
+      .width-25;
+      .division {
+        display: none;
+      }
+    }
+
+    .user-email {
+      .width-25;
+    }
+
+    .user-account {
+      .width-25;
+    }
+
+    .user-division {
+      .width-25;
+    }
+  }
+}
+

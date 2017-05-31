@@ -1,0 +1,113 @@
+#user-list-header {
+  display: flex;
+  flex-direction: row;
+}
+/* Target landscape smartphones, portrait tablets, narrow desktops */
+@media screen and (min-width: 320px) and (max-width: 800px) {
+  #user-list-header {
+    display: none;
+  }
+  #users-list {
+    padding: 10px;
+  }
+  #users-list .user-name-position {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  #users-list .user-name-position .position {
+    display: none;
+  }
+  #users-list .user-email {
+    display: none;
+  }
+  #users-list .user-account {
+    display: none;
+  }
+  #users-list .user-division {
+    display: none;
+  }
+}
+/* Target landscape tablets, desktops */
+@media screen and (min-width: 800px) and (max-width: 1400px) {
+  #user-list-header {
+    padding: 10px;
+  }
+  #user-list-header .header-image {
+    margin-right: 20px;
+    width: 40px;
+  }
+  #user-list-header .header-user-name-position {
+    float: left;
+    width: 33%;
+    box-sizing: border-box;
+  }
+  #user-list-header .header-user-email {
+    float: left;
+    width: 33%;
+    box-sizing: border-box;
+    margin-right: 20px;
+  }
+  #user-list-header .header-user-account {
+    display: none;
+  }
+  #user-list-header .header-user-division {
+    float: left;
+    width: 33%;
+    box-sizing: border-box;
+  }
+  #users-list {
+    padding: 20px;
+  }
+  #users-list .user-name-position {
+    float: left;
+    width: 33%;
+    box-sizing: border-box;
+    margin-right: 20px;
+  }
+  #users-list .user-name-position .division {
+    display: none;
+  }
+  #users-list .user-email {
+    float: left;
+    width: 33%;
+    box-sizing: border-box;
+    margin-right: 20px;
+  }
+  #users-list .user-account {
+    display: none;
+  }
+  #users-list .user-division {
+    float: left;
+    width: 33%;
+    box-sizing: border-box;
+  }
+}
+/* Target big displays */
+@media screen and (min-width: 1400px) {
+  #users-list {
+    padding: 20px;
+  }
+  #users-list .user-name-position {
+    float: left;
+    width: 25%;
+    box-sizing: border-box;
+  }
+  #users-list .user-name-position .division {
+    display: none;
+  }
+  #users-list .user-email {
+    float: left;
+    width: 25%;
+    box-sizing: border-box;
+  }
+  #users-list .user-account {
+    float: left;
+    width: 25%;
+    box-sizing: border-box;
+  }
+  #users-list .user-division {
+    float: left;
+    width: 25%;
+    box-sizing: border-box;
+  }
+}

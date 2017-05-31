@@ -23,6 +23,9 @@
   },
   "homepage": "https://github.com/bdf2ch/angular-webpack-es6-seed#readme",
   "devDependencies": {
+    "angular-animate": "^1.6.4",
+    "angular-aria": "^1.6.4",
+    "angular-material": "^1.1.4",
     "angular-mocks": "^1.6.4",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",

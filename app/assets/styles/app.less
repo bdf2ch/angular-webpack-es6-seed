@@ -1,3 +1,8 @@
+@app-background-color: #ECEFF1;
+@app-header-height: 70px;
+@app-header-background-color: #006064;
+
+
 @font-face {
   font-family: "Roboto Regular";
   src: url("../fonts/Roboto-Regular.ttf");
@@ -8,17 +13,35 @@
   src: url("../fonts/Roboto-Bold.ttf");
 }
 
-body {
-  height: 100%;
-  background: white;
+html, body {
+  //height: 100%;
+  padding: 0px;
+  margin: 0px;
   font-family: 'Roboto Regular';
+  background: @app-background-color;
 }
 
 
-input[type='text'] {
-  display: block;
-  width: 100%;
-  border: none;
-  border-bottom: 1px solid lightgray;
-  outline: none;
+
+#app-header {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  height: @app-header-height;
+  background: @app-header-background-color;
+}
+
+#app-wrapper {
+  overflow: auto;
+  position: absolute;
+  top: @app-header-height;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  box-sizing: border-box;
+
+  #app-content-wrapper {
+    //overflow: auto;
+  }
 }
