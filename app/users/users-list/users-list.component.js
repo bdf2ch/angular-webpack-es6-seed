@@ -7,12 +7,45 @@ import './users-list.component.css';
 export const UsersListComponent = angular
     .module(UsersModule.name)
     .component('usersList', {
+        bindings: {
+            users: '<'
+        },
         templateUrl: 'users/users-list/users-list.template.html',
-        controller: ['$log', 'UsersService', function ($log, UsersService) {
+        controller: ['$log', 'UsersService', 'ModalsService', function ($log, UsersService, ModalsService) {
+            let search = this.search = '';
+            let selectedUser = this.selectedUser = null;
 
-            this.$onInit = function () {
-                //UsersService.fetchAllUsers();
+
+            this.selectUser = function (user) {
+                if (user !== undefined) {
+                    this.selectedUser = user;
+                    $log.log('fio = ', this.selectedUser.fio);
+                    ModalsService.getById('edit-user-modal').open().modalCaption = this.selectedUser.fio;
+                }
             };
 
+
+            this.closeEditUserModal = function (form) {
+                this.selectedUser = null;
+                form.$setPristine();
+                form.$setUntouched();
+                ModalsService.getById('edit-user-modal').close();
+            };
+
+
+            this.clearSearch = function () {
+                this.search = '';
+            };
+
+
+            this.openDivisionsModal = function () {
+                ModalsService.getById('users-list-divisions-modal').open();
+            };
+
+
+            this.openEditUserDivisionsModal = function () {
+                $log.log('open');
+                ModalsService.getById('edit-user-divisions-modal').open();
+            };
         }]
     });

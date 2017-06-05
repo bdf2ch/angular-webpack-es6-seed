@@ -1,26 +1,45 @@
 <div id="users-list">
 
-    <input type="text" name="" id="" class="width-100 margin-bottom-20" placeholder="Введите имя или e-mail пользователя">
+    <div class="combined-input">
+        <input type="text"
+               name="search"
+               id="users-search"
+               class="width-100 margin-bottom-5"
+               placeholder="Введите имя или e-mail пользователя"
+               ng-model="$ctrl.search">
+        <button title="Очистить поиск"
+                ng-show="$ctrl.search !== ''"
+                ng-click="$ctrl.clearSearch()">
+            <i class="fa fa-times"></i>
+        </button>
+        <button title="Выбрать структурное подразделение" ng-click="$ctrl.openDivisionsModal()">
+            <i class="fa fa-building"></i>
+        </button>
+    </div>
+    <div class="row margin-bottom-20">
+        <code>Структурное подразделение:</code>
+    </div>
+
 
     <div id="user-list-header">
         <div class="header-image"></div>
-        <div class="header-user-name-position"><i class="fa fa-user"></i>Имя пользователя</div>
+        <div class="header-user-name-position"><i class="fa fa-user"></i>Имя / должность</div>
         <div class="header-user-email"><i class="fa fa-at"></i>E-mail</div>
         <div class="header-user-account"><i class="fa fa-desktop"></i>Active Directory</div>
-        <div class="header-user-division"><i class="fa fa-building">Структурное подразделение/филиал</i></div>
+        <div class="header-user-division"><i class="fa fa-building"></i>Стр. подразделение / филиал</div>
     </div>
 
-    <div class="list-item" ng-repeat="item in [1, 2, 3, 4, 5, 6]">
+    <div class="list-item" ng-repeat="user in $ctrl.users | filter: { 'fio': $ctrl.search } track by $index" ng-click="$ctrl.selectUser(user)">
         <div class="list-image margin-right-20">
             <i class="fa fa-user"></i>
         </div>
         <div class="list-content user-name-position">
-            <span class="primary name">Иванов Иван Иванович</span>
-            <span class="secondary position">инженер-программист</span>
+            <span class="primary name">{{ user.fio }}</span>
+            <span class="secondary position" ng-show="user.position !== ''">{{ user.position }}</span>
             <span class="secondary division">филиал Псковэнерго</span>
         </div>
         <div class="list-content user-email">
-            <span class="primary">ivanov@mail.ru</span>
+            <span class="primary">{{ user.email }}</span>
         </div>
         <div class="list-content user-account">
             <span class="primary">kolu0895</span>
@@ -30,6 +49,87 @@
             <span class="secondary">филиал Псковэнерго</span>
         </div>
     </div>
+
+
+    <!-- Модальное окно выбора структурного подразделения для фильтра списка пользователей -->
+    <modal id="users-list-divisions-modal"
+           title="управление пользователями"
+           caption="Выберите структурное подразделение"
+           icon="fa-building"
+           width="400"
+           height="400">
+    </modal>
+
+
+    <!-- Модальное окно выбора струткрного подразделения при редактировании пользователя -->
+    <modal id="edit-user-divisions-modal"
+           title="управление пользователями"
+           caption="Выберите структурное подразделение"
+           icon="fa-building"
+           width="400"
+           height="400"
+           depth="2">
+    </modal>
+
+
+    <!-- Модальнок окно с информацие о выбранном пользователе -->
+    <modal id="edit-user-modal"
+           title="управление пользователями"
+           description="Информация о пользователе"
+           icon="fa-user"
+           width="500"
+           depth="1"
+           on-close="closeEditUserModal()">
+        <tabs id="selected-user">
+            <tab id="info" title="Личные данные" width="50%">
+                <div class="row padding-20 padding-top-5 padding-bottom-10">
+                    <form name="form" action="">
+                        <div class="row margin-bottom-10">
+                            <label for="selected-user-surname">Фамилия</label>
+                            <input type="text" name="surname" id="selected-user-surname" class="width-100" placeholder="Введите фамилию" ng-model="$ctrl.selectedUser.surname">
+                        </div>
+                        <div class="row margin-bottom-10">
+                            <label for="selected-user-name">Имя</label>
+                            <input type="text" name="surname" id="selected-user-name" class="width-100" placeholder="Введите имя" ng-model="$ctrl.selectedUser.name">
+                        </div>
+                        <div class="row margin-bottom-10">
+                            <label for="selected-user-fname">Отчество</label>
+                            <input type="text" name="fname" id="selected-user-fname" class="width-100" placeholder="Введите отчество" ng-model="$ctrl.selectedUser.fname">
+                        </div>
+                        <div class="row margin-bottom-10">
+                            <label for="selected-user-division">Структурное подразделение</label>
+                            <div class="combined-input">
+                                <input type="text" name="email" id="selected-user-division" class="width-100" placeholder="Выберите структурное подразделение" ng-model="$ctrl.selectedUser.email">
+                                <button type="button" ng-click="this.$parent.$parent.$ctrl.openEditUserDivisionsModal()"><i class="fa fa-building"></i></button>
+                            </div>
+                        </div>
+                        <div class="row margin-bottom-10">
+                            <label for="selected-user-position">Должность</label>
+                            <input type="text" name="position" id="selected-user-position" class="width-100" placeholder="Введите должность" ng-model="$ctrl.selectedUser.position">
+                        </div>
+                        <div class="row margin-bottom-10">
+                            <label for="selected-user-email">E-mail</label>
+                            <input type="text" name="email" id="selected-user-email" class="width-100" placeholder="Введите e-mail" ng-model="$ctrl.selectedUser.email">
+                        </div>
+                        <div class="row margin-bottom-10">
+                            <label for="selected-user-account">Учетная запись Active Directory</label>
+                            <input type="text" name="account" id="selected-user-account" class="width-100" placeholder="Введите учетную запись" ng-model="$ctrl.selectedUser.account">
+                        </div>
+                        <div class="row">
+                            <div class="width-50 padding-right-5">
+                                <button class="green width-100" title="Сохранить изменения" ng-disabled="form.$pristine">Сохранить</button>
+                            </div>
+                            <div class="width-50 padding-left-5">
+                                <button type="button" class="red width-100" title="Отмена" ng-click="this.$parent.$parent.$ctrl.closeEditUserModal(form)">Отмена</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </tab>
+            <tab id="permissions" title="Права доступа" width="50%"></tab>
+        </tabs>
+    </modal>
+
 
 </div>
 

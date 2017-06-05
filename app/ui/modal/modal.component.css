@@ -87,7 +87,7 @@
 }
 .modal-component .modal-content {
   overflow: auto;
-  height: 200px;
+  height: auto;
   background: white;
   border-bottom-left-radius: 2px;
   border-bottom-right-radius: 2px;

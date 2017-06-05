@@ -1,0 +1,59 @@
+@import (reference) 'inputs';
+@import (reference) 'colors';
+
+
+@button-height: @input-height + 5px;
+@button-padding: 10px;
+@button-font-size: 14px;
+@button-font-color: white;
+
+button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: @button-height;
+  box-sizing: border-box;
+  font-size: @button-font-size;
+  text-align: center;
+  color: @button-font-color;
+  background: transparent;
+  border: none;
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+
+  &.blue {
+    background: @color-blue-active;
+    &:hover {
+      background: @color-blue-active-hover;
+    }
+    &[disabled] {
+      background: @color-blue-inactive;
+    }
+  }
+
+  &.red {
+    background: @color-red-active;
+    &:hover {
+      background: @color-red-active-hover;
+    }
+    &[disabled] {
+      background: @color-red-inactive;
+    }
+  }
+
+  &.green {
+    background: @color-green-active;
+    &:hover {
+      background: @color-green-active-hover;
+    }
+    &[disabled] {
+      background: @color-green-inactive;
+    }
+  }
+
+  .fa {
+    font-size: @button-font-size + 2px;
+  }
+}

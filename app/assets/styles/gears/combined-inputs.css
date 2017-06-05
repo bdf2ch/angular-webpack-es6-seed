@@ -1,0 +1,17 @@
+.combined-input {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+.combined-input button {
+  width: 30px;
+  height: 30px;
+  color: #90A4AE;
+  border-bottom: 1px solid #CFD8DC;
+}
+.combined-input button:hover {
+  color: #455A64;
+}
+.combined-input button:last-child {
+  justify-content: flex-end;
+}

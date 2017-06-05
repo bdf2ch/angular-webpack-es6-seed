@@ -1,6 +1,16 @@
 #user-list-header {
+  margin-top: 20px;
+  padding: 10px;
   display: flex;
   flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #78909C;
+}
+#user-list-header .fa {
+  margin-right: 5px;
 }
 /* Target landscape smartphones, portrait tablets, narrow desktops */
 @media screen and (min-width: 320px) and (max-width: 800px) {
@@ -29,9 +39,6 @@
 }
 /* Target landscape tablets, desktops */
 @media screen and (min-width: 800px) and (max-width: 1400px) {
-  #user-list-header {
-    padding: 10px;
-  }
   #user-list-header .header-image {
     margin-right: 20px;
     width: 40px;
@@ -40,6 +47,7 @@
     float: left;
     width: 33%;
     box-sizing: border-box;
+    margin-right: 20px;
   }
   #user-list-header .header-user-email {
     float: left;
@@ -84,6 +92,33 @@
 }
 /* Target big displays */
 @media screen and (min-width: 1400px) {
+  #user-list-header .header-image {
+    margin-right: 20px;
+    width: 40px;
+  }
+  #user-list-header .header-user-name-position {
+    float: left;
+    width: 25%;
+    box-sizing: border-box;
+    margin-right: 20px;
+  }
+  #user-list-header .header-user-email {
+    float: left;
+    width: 25%;
+    box-sizing: border-box;
+    margin-right: 20px;
+  }
+  #user-list-header .header-user-account {
+    float: left;
+    width: 25%;
+    box-sizing: border-box;
+    margin-right: 20px;
+  }
+  #user-list-header .header-user-division {
+    float: left;
+    width: 25%;
+    box-sizing: border-box;
+  }
   #users-list {
     padding: 20px;
   }
@@ -91,6 +126,7 @@
     float: left;
     width: 25%;
     box-sizing: border-box;
+    margin-right: 20px;
   }
   #users-list .user-name-position .division {
     display: none;
@@ -99,11 +135,13 @@
     float: left;
     width: 25%;
     box-sizing: border-box;
+    margin-right: 20px;
   }
   #users-list .user-account {
     float: left;
     width: 25%;
     box-sizing: border-box;
+    margin-right: 20px;
   }
   #users-list .user-division {
     float: left;

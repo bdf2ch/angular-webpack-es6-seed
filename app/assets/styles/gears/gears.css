@@ -1,4 +1,5 @@
 .row {
+  overflow: auto;
   box-sizing: border-box;
 }
 .width-100 {
@@ -273,6 +274,69 @@ label {
   font-size: 13px;
   color: #999;
 }
+.combined-input {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+.combined-input button {
+  width: 30px;
+  height: 30px;
+  color: #90A4AE;
+  border-bottom: 1px solid #CFD8DC;
+}
+.combined-input button:hover {
+  color: #455A64;
+}
+.combined-input button:last-child {
+  justify-content: flex-end;
+}
+button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 35px;
+  box-sizing: border-box;
+  font-size: 14px;
+  text-align: center;
+  color: white;
+  background: transparent;
+  border: none;
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+button.blue {
+  background: #039BE5;
+}
+button.blue:hover {
+  background: #01579B;
+}
+button.blue[disabled] {
+  background: #B3E5FC;
+}
+button.red {
+  background: #F44336;
+}
+button.red:hover {
+  background: #C62828;
+}
+button.red[disabled] {
+  background: #EF9A9A;
+}
+button.green {
+  background: #43A047;
+}
+button.green:hover {
+  background: #2E7D32;
+}
+button.green[disabled] {
+  background: #C8E6C9;
+}
+button .fa {
+  font-size: 16px;
+}
 .list-item {
   padding: 10px;
   margin-bottom: 10px;
@@ -283,6 +347,14 @@ label {
   box-sizing: border-box;
   border-radius: 2px;
   background: white;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+.list-item:last-of-type {
+  margin-bottom: 0px;
+}
+.list-item:hover {
+  background: #f0ffff;
 }
 .list-item .list-image .fa {
   width: 40px;
@@ -300,6 +372,7 @@ label {
 }
 .list-item .list-content .primary {
   font-size: 15px;
+  line-height: 15px;
   color: #0277BD;
 }
 .list-item .list-content .secondary {

@@ -33,7 +33,6 @@
 .tabs-component .tabs-container .tab.active {
   height: 40px;
   margin-bottom: -1px;
-  font-family: "Roboto Bold";
   line-height: 30px;
   color: #0D47A1;
   border-bottom: 1px solid white;

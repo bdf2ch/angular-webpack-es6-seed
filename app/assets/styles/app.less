@@ -1,5 +1,6 @@
 @app-background-color: #ECEFF1;
 @app-header-height: 70px;
+@app-header-height-mobile: 50px;
 @app-header-background-color: #006064;
 
 
@@ -8,13 +9,15 @@
   src: url("../fonts/Roboto-Regular.ttf");
 }
 
+
 @font-face {
   font-family: "Roboto Bold";
   src: url("../fonts/Roboto-Bold.ttf");
 }
 
+
+/*** COMMON ***/
 html, body {
-  //height: 100%;
   padding: 0px;
   margin: 0px;
   font-family: 'Roboto Regular';
@@ -22,26 +25,65 @@ html, body {
 }
 
 
-
+/*** APP HEADER ***/
 #app-header {
   position: absolute;
   top: 0px;
   left: 0px;
   right: 0px;
-  height: @app-header-height;
   background: @app-header-background-color;
 }
 
+
+/*** APP WRAPPER ***/
 #app-wrapper {
   overflow: auto;
   position: absolute;
-  top: @app-header-height;
   left: 0px;
   right: 0px;
   bottom: 0px;
   box-sizing: border-box;
 
   #app-content-wrapper {
-    //overflow: auto;
+
   }
 }
+
+
+/* Target landscape smartphones, portrait tablets, narrow desktops */
+@media screen and (min-width: 320px) and (max-width: 800px) {
+  #app-header {
+    height: @app-header-height-mobile;
+  }
+
+  #app-wrapper {
+    top: @app-header-height-mobile;
+  }
+}
+
+
+/* Target landscape tablets, desktops */
+@media screen and (min-width: 800px) and (max-width: 1400px) {
+  #app-header {
+    height: @app-header-height-mobile;
+  }
+
+  #app-wrapper {
+    top: @app-header-height-mobile;
+  }
+}
+
+
+/* Target big displays */
+@media screen and (min-width: 1400px) {
+  #app-header {
+    height: @app-header-height;
+  }
+
+  #app-wrapper {
+    top: @app-header-height;
+  }
+}
+
+
+

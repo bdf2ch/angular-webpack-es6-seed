@@ -22,10 +22,10 @@ export const ModalComponent = angular
             onClose: '&'
         },
         transclude: true,
-        controller: ['$log', 'ModalsService', function ($log, ModalsService) {
+        controller: ['$log', '$element', '$timeout', 'ModalsService', function ($log, $element, $timeout, ModalsService) {
             var modalOpened = this.modalOpened = false;
             var modalWidth = this.modalWidth = '300px';
-            var modalHeight = this.modalHeight = '300px';
+            var modalHeight = this.modalHeight = 'auto';
             var modalDepth = this.modalDepth = 1;
             var modalCaption = this.modalCaption = '';
             var modalDescription = this.modalDescription = '';
@@ -58,15 +58,28 @@ export const ModalComponent = angular
             };
 
 
+            this.$onChanges = function (changes) {
+                //$log.log(changes);
+            };
+
+
             this.open = function () {
                 this.modalOpened = true;
                 this.onOpen();
+                $timeout(() => {
+                    if (this.modalHeight === 'auto') {
+                        let height = angular.element($element[0].children[0].children[0].children[1])[0].clientHeight;
+                        this.modalHeight = height + 'px';
+                    }
+                }, 100);
+                return this;
             };
 
 
             this.close = function () {
                 this.modalOpened = false;
                 this.onClose();
+                return this;
             };
 
         }]

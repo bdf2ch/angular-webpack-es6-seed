@@ -12,7 +12,8 @@ export let TabComponent = angular
         bindings: {
             id: '@',
             title: '@',
-            width: '@'
+            width: '@',
+            scope: '='
         },
         require: {
             tabsCtrl: '^tabs'

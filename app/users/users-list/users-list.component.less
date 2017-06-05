@@ -5,8 +5,19 @@
 
 
 #user-list-header {
+  .margin-top-20;
+  .padding-10;
   display: flex;
   flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #78909C;
+
+  .fa {
+    .margin-right-5;
+  }
 }
 
 
@@ -46,7 +57,7 @@
 /* Target landscape tablets, desktops */
 @media screen and (min-width: 800px) and (max-width: 1400px) {
   #user-list-header {
-    .padding-10;
+    //.padding-10;
 
     .header-image {
       .margin-right-20;
@@ -55,6 +66,7 @@
 
     .header-user-name-position {
       .width-33;
+      .margin-right-20;
     }
 
     .header-user-email {
@@ -101,11 +113,39 @@
 
 /* Target big displays */
 @media screen and (min-width: 1400px) {
+  #user-list-header {
+
+    .header-image {
+      .margin-right-20;
+      width: @list-item-image-width;
+    }
+
+    .header-user-name-position {
+      .width-25;
+      .margin-right-20;
+    }
+
+    .header-user-email {
+      .width-25;
+      .margin-right-20;
+    }
+
+    .header-user-account {
+      .width-25;
+      .margin-right-20;
+    }
+
+    .header-user-division {
+      .width-25;
+    }
+  }
+
   #users-list {
     .padding-20;
 
     .user-name-position {
       .width-25;
+      .margin-right-20;
       .division {
         display: none;
       }
@@ -113,10 +153,12 @@
 
     .user-email {
       .width-25;
+      .margin-right-20;
     }
 
     .user-account {
       .width-25;
+      .margin-right-20;
     }
 
     .user-division {

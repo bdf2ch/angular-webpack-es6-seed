@@ -1,0 +1,26 @@
+@import (reference) 'inputs';
+@import (reference) 'paddings';
+
+
+.combined-input {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+
+  button {
+    //.padding-left-5;
+    //.padding-right-5;
+    width: @input-height;
+    height: @input-height;
+    color: #90A4AE;
+    border-bottom: 1px solid @input-border-color;
+
+    &:hover {
+      color: #455A64;
+    }
+
+    &:last-child {
+      justify-content: flex-end;
+    }
+  }
+}

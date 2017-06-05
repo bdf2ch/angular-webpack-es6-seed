@@ -27,13 +27,18 @@ export const AppModule = angular.module('app', [router, ViolationsModule.name, U
                 template: '<violations-list></violations-list>'
             })
             .when('/users', {
-                template: '<users-list></users-list>'
+                template: '<users-list users="$resolve.users"></users-list>',
+                resolve: {
+                    users: function(UsersService) {
+                        return UsersService.fetchAllUsers().then((data) => UsersService.parseUsers(data.data));
+                    }
+                }
             })
             .otherwise({
                 redirectTo: '/'
             });
     }])
-    .value('API', '/serverside/api.php')
+    .value('API', 'http://127.0.0.1:3000/api')
     .run(['$log', function ($log) {
         $log.log('app');
     }]);

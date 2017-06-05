@@ -6,6 +6,7 @@
   font-family: "Roboto Bold";
   src: url("../fonts/Roboto-Bold.ttf");
 }
+/*** COMMON ***/
 html,
 body {
   padding: 0px;
@@ -13,20 +14,47 @@ body {
   font-family: 'Roboto Regular';
   background: #ECEFF1;
 }
+/*** APP HEADER ***/
 #app-header {
   position: absolute;
   top: 0px;
   left: 0px;
   right: 0px;
-  height: 70px;
   background: #006064;
 }
+/*** APP WRAPPER ***/
 #app-wrapper {
   overflow: auto;
   position: absolute;
-  top: 70px;
   left: 0px;
   right: 0px;
   bottom: 0px;
   box-sizing: border-box;
+}
+/* Target landscape smartphones, portrait tablets, narrow desktops */
+@media screen and (min-width: 320px) and (max-width: 800px) {
+  #app-header {
+    height: 50px;
+  }
+  #app-wrapper {
+    top: 50px;
+  }
+}
+/* Target landscape tablets, desktops */
+@media screen and (min-width: 800px) and (max-width: 1400px) {
+  #app-header {
+    height: 50px;
+  }
+  #app-wrapper {
+    top: 50px;
+  }
+}
+/* Target big displays */
+@media screen and (min-width: 1400px) {
+  #app-header {
+    height: 70px;
+  }
+  #app-wrapper {
+    top: 70px;
+  }
 }

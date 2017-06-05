@@ -1,28 +1,40 @@
 import angular from 'angular';
 import { UsersModule } from './users.module'
+import { User } from '../models/user';
 
 export const UsersService = angular
     .module(UsersModule.name)
     .factory('UsersService', ['$log', '$http', 'API', function ($log, $http, API) {
+        let users = [];
+
         let api = {
 
+            /**
+             * Получает всех пользователей с сервера
+             * @param success
+             * @param error
+             */
             fetchAllUsers: function (success, error) {
                 let parameters = {
                     action: 'getAllUsers'
                 };
-                $http.post(API, parameters)
-                    .success((data) => {
-                        if (data !== undefined) {
-                            data.each(function (item) {
-                                $log.log(item);
-                            });
-                        }
-                        if (success !== undefined && typeof  success === 'function')
-                            success();
-                    })
-                    .error((error) => {
-                        $log.error('Error fetching list of users: ' + error);
+                return $http.post(API, parameters);
+            },
+
+
+            parseUsers: function (data) {
+                if (data !== undefined) {
+                    data.forEach((item) => {
+                        let user = new User(item);
+                        users.push(user);
                     });
+                    return users;
+                }
+            },
+
+
+            getAllUsers: function () {
+                return users;
             }
 
         };

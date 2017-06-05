@@ -8,6 +8,14 @@
   box-sizing: border-box;
   border-radius: 2px;
   background: white;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+.list-item:last-of-type {
+  margin-bottom: 0px;
+}
+.list-item:hover {
+  background: #f0ffff;
 }
 .list-item .list-image .fa {
   width: 40px;
@@ -25,6 +33,7 @@
 }
 .list-item .list-content .primary {
   font-size: 15px;
+  line-height: 15px;
   color: #0277BD;
 }
 .list-item .list-content .secondary {
