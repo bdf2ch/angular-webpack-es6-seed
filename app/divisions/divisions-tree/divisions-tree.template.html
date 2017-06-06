@@ -1,0 +1,19 @@
+<div class="divisions-tree-component">
+    <div class="tree-item root" ng-repeat="division in $ctrl.root track by $id(division.id)">
+        <div class="item-details">
+            <span class="bullet down">
+                <i class="fa fa-caret-right" ng-show="division.children.length > 0 && division.opened === false" ng-click="$ctrl.expandItem(division.id)"></i>
+                <i class="fa fa-caret-down" ng-show="division.children.length > 0 && division.opened === true" ng-click="$ctrl.collapseItem(division.id)"></i>
+            </span>
+            <span class="icon">
+                <i class="fa fa-building"></i>
+            </span>
+            <span class="title" ng-click="$ctrl.selectItem(division.id)">{{ division.title }}</span>
+        </div>
+        <div class="children-items" ng-show="division.children.length > 0 && division.opened === true">
+            <divisions-tree-item tree="$ctrl" children="division.children" level="1"></divisions-tree-item>
+        </div>
+    </div>
+</div>
+
+

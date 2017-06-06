@@ -11,6 +11,9 @@ input[type='text'] {
   border-bottom: 1px solid #CFD8DC;
   outline: none;
 }
+input[type='text'][disabled] {
+  color: #757575;
+}
 label {
   display: inline-block;
   font-size: 13px;

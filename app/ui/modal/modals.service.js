@@ -4,7 +4,7 @@ import { UiModule } from '../ui.module';
 export const ModalsService = angular
     .module(UiModule.name)
     .factory('ModalsService', ['$log', function ($log) {
-        var modals = [];
+        let modals = [];
 
         let api = {
 
@@ -16,7 +16,7 @@ export const ModalsService = angular
             },
 
             getById: function (id) {
-                if (id !== undefined) {
+                if (id !== undefined && id !== '') {
                     const found = (item, index, modals) => item.id === id;
                     return modals.find(found);
                 }

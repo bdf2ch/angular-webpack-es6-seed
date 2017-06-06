@@ -11,28 +11,36 @@ export const UsersService = angular
 
             /**
              * Получает всех пользователей с сервера
-             * @param success
-             * @param error
+             * @returns {HttpPromise}
              */
             fetchAllUsers: function (success, error) {
-                let parameters = {
-                    action: 'getAllUsers'
-                };
+                let parameters = { action: 'getAllUsers' };
                 return $http.post(API, parameters);
             },
 
 
+            /**
+             * Выполняет разбор полученных с сервера данных и заполняет массив пользователей
+             * @param data {Array}
+             * @returns {Array}
+             */
             parseUsers: function (data) {
                 if (data !== undefined) {
                     data.forEach((item) => {
                         let user = new User(item);
+                        user.backup.setup(['divisionId', 'surname', 'name', 'fname', 'position', 'email', 'account']);
                         users.push(user);
                     });
+                    //$log.log(users);
                     return users;
                 }
             },
 
 
+            /**
+             * Возвращает массив со всеми пользователями
+             * @returns {Array}
+             */
             getAllUsers: function () {
                 return users;
             }

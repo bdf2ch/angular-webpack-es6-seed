@@ -9,15 +9,24 @@ export let TabsComponent = angular
     .component('tabs', {
         transclude: true,
         templateUrl: 'ui/tabs/tabs.template.html',
-        controller: ['$log', function ($log) {
-            var tabs = this.tabs = [];
+        controller: ['$log', 'TabsService', function ($log, TabsService) {
+            let tabs = this.tabs = [];  // Массив вкладок
 
+
+            /**
+             * Инициализация компонента
+             * Проиизводит регистрацию компоеннта в сервисе
+             */
             this.$onInit = function () {
-                $log.log('tabs', this.tabs);
+                TabsService.register(this);
             };
 
+
+            /**
+             * Регистрирует дочернюю вкладку компонента
+             * @param tab {Object} - контроллер компонента вкладки
+             */
             this.register = function (tab) {
-                $log.log(tab);
                 if (tab !== undefined) {
                     this.tabs.push(tab);
                     tab.tabActive = this.tabs.length === 1 ? true : false;
@@ -25,17 +34,16 @@ export let TabsComponent = angular
             };
 
 
-            this.select = function (tab) {
-                if (tab !== undefined) {
-                    let length = this.tabs.length;
-                    for (let i = 0; i < length; i++) {
-                        if (this.tabs[i].id === tab.id)
-                            this.tabs[i].tabActive = true;
-                        else
-                            this.tabs[i].tabActive = false;
-                    }
+            /**
+             * Производит выбор вкладки
+             * @param id {String} - идентификатор вкладки
+             */
+            this.selectTabById = function (id) {
+                if (id !== undefined && id !== '') {
+                    tabs.forEach(function (item, index, array) {
+                        item.tabActive = item.id === id ? true : false;
+                    });
                 }
             };
-
         }]
     });

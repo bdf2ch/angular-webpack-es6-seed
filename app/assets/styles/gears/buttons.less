@@ -23,6 +23,10 @@ button {
   outline: none;
   cursor: pointer;
 
+  &[disabled] {
+    cursor: default;
+  }
+
   &.blue {
     background: @color-blue-active;
     &:hover {

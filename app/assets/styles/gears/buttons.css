@@ -14,6 +14,9 @@ button {
   outline: none;
   cursor: pointer;
 }
+button[disabled] {
+  cursor: default;
+}
 button.blue {
   background: #039BE5;
 }

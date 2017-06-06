@@ -1,0 +1,19 @@
+<div class="tree-item" ng-repeat="item in $ctrl.children track by $index">
+
+    <div class="item-details" ng-class="{ 'selected': item.selected === true }" ng-style="{ 'padding-left': $ctrl.level * 25 + 'px' }">
+        <span class="bullet">
+            <i class="fa fa-caret-right" ng-show="item.children.length > 0 && item.opened === false" ng-click="$ctrl.tree.expandItem(item.id)"></i>
+            <i class="fa fa-caret-down" ng-show="item.children.length > 0 && item.opened === true" ng-click="$ctrl.tree.collapseItem(item.id)"></i>
+        </span>
+        <span class="icon">
+            <i class="fa fa-building"></i>
+        </span>
+        <span class="title" ng-click="$ctrl.tree.selectItem(item.id)">{{ item.title }}</span>
+    </div>
+
+    <div class="children-items" ng-show="item.children.length > 0 && item.opened === true">
+        <divisions-tree-item tree="$ctrl.tree" children="item.children" level="$ctrl.level + 1"></divisions-tree-item>
+    </div>
+
+</div>
+

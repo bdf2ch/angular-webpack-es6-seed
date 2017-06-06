@@ -3,7 +3,7 @@
         <div class="modal-header">
             <div class="header-controls">
                 <span class="title">{{ $ctrl.title }}</span>
-                <span class="control" title="Закрыть" ng-click="$ctrl.close()">Закрыть</span>
+                <span class="control" title="Закрыть" ng-click="$ctrl.close(true)">Закрыть</span>
             </div>
             <div class="header-content">
                 <i ng-show="$ctrl.modalIcon !== ''" class="{{ 'fa ' + $ctrl.modalIcon }}"></i>

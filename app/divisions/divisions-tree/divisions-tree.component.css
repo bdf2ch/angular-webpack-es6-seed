@@ -1,0 +1,46 @@
+.divisions-tree-component {
+  width: 100%;
+}
+.divisions-tree-component .tree-item {
+  font-size: 14px;
+  line-height: 14px;
+}
+.divisions-tree-component .tree-item.root {
+  font-size: 14px;
+}
+.divisions-tree-component .tree-item .item-details {
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 10px;
+  padding-right: 10px;
+  cursor: pointer;
+}
+.divisions-tree-component .tree-item .item-details:hover {
+  background: #E1F5FE;
+}
+.divisions-tree-component .tree-item .item-details.selected {
+  background: #B3E5FC;
+}
+.divisions-tree-component .tree-item .item-details .icon .fa {
+  color: #01579B;
+}
+.divisions-tree-component .tree-item .item-details .bullet {
+  margin-right: 5px;
+  display: inline-block;
+  width: 9px;
+  height: 100%;
+}
+.divisions-tree-component .tree-item .item-details .bullet .fa {
+  margin-left: 5px;
+  font-size: 15px;
+  color: #039BE5;
+}
+.divisions-tree-component .tree-item .children-items .icon {
+  width: 12px;
+}
+.divisions-tree-component .tree-item .children-items .icon .fa {
+  color: #01579B;
+}
+.divisions-tree-component .tree-item .children-items .title.selected {
+  font-weight: bold;
+}

@@ -14,13 +14,17 @@ import { ModalComponent } from './ui/modal/modal.component';
 import { ModalsService } from './ui/modal/modals.service';
 import { TabsComponent } from './ui/tabs/tabs.component';
 import { TabComponent } from './ui/tabs/tab.component';
+import { TabsService } from './ui/tabs/tabs.service';
 import { TestController } from './violations/test.controller';
 
 import { UsersListComponent } from './users/users-list/users-list.component';
 import { UsersService } from './users/users.service';
 
+import { DivisionsModule } from './divisions/divisions.module';
+import { DivisionsService } from './divisions/divisions.service';
 
-export const AppModule = angular.module('app', [router, ViolationsModule.name, UsersModule.name, UiModule.name])
+
+export const AppModule = angular.module('app', [router, ViolationsModule.name, DivisionsModule.name, UsersModule.name, UiModule.name])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider
             .when('/', {
@@ -31,6 +35,9 @@ export const AppModule = angular.module('app', [router, ViolationsModule.name, U
                 resolve: {
                     users: function(UsersService) {
                         return UsersService.fetchAllUsers().then((data) => UsersService.parseUsers(data.data));
+                    },
+                    divisions: function (DivisionsService) {
+                        return DivisionsService.fetchAllDivisions().then((data) => DivisionsService.parseDivisions(data.data));
                     }
                 }
             })

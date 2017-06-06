@@ -29,24 +29,24 @@
         <div class="header-user-division"><i class="fa fa-building"></i>Стр. подразделение / филиал</div>
     </div>
 
-    <div class="list-item" ng-repeat="user in $ctrl.users | filter: { 'fio': $ctrl.search } track by $index" ng-click="$ctrl.selectUser(user)">
+    <div class="list-item" ng-repeat="user in $ctrl.users | filter: { 'fio': $ctrl.search } track by $id(user.id)" ng-click="$ctrl.selectUser(user)">
         <div class="list-image margin-right-20">
             <i class="fa fa-user"></i>
         </div>
         <div class="list-content user-name-position">
             <span class="primary name">{{ user.fio }}</span>
             <span class="secondary position" ng-show="user.position !== ''">{{ user.position }}</span>
-            <span class="secondary division">филиал Псковэнерго</span>
+            <span class="secondary division" ng-init="division = $ctrl.divisions.getDivisionById(user.divisionId)">{{ $ctrl.divisions.getDivisionById(division.departmentId).titleShort }}</span>
         </div>
         <div class="list-content user-email">
             <span class="primary">{{ user.email }}</span>
         </div>
         <div class="list-content user-account">
-            <span class="primary">kolu0895</span>
+            <span class="primary">{{ user.account }}</span>
         </div>
         <div class="list-content user-division">
-            <span class="primary">Кривожопольский РЭС</span>
-            <span class="secondary">филиал Псковэнерго</span>
+            <span class="primary">{{ $ctrl.divisions.getDivisionById(user.divisionId).titleShort }}</span>
+            <span class="secondary" ng-show="division.isDepartment === false" ng-init="div = $ctrl.divisions.getDivisionById(user.divisionId)">{{ $ctrl.divisions.getDivisionById(div.departmentId).titleShort }}</span>
         </div>
     </div>
 
@@ -69,6 +69,12 @@
            width="400"
            height="400"
            depth="2">
+            <divisions-tree
+                    divisions="$ctrl.divisions.getAllDivisions()"
+                    expand-on-select="true"
+                    collapse-on-select="true"
+                    on-select="$ctrl.selectEditUserDivision()">
+            </divisions-tree>
     </modal>
 
 
@@ -79,14 +85,15 @@
            icon="fa-user"
            width="500"
            depth="1"
-           on-close="closeEditUserModal()">
+           on-close="$ctrl.closeEditUserModal()">
         <tabs id="selected-user">
             <tab id="info" title="Личные данные" width="50%">
                 <div class="row padding-20 padding-top-5 padding-bottom-10">
                     <form name="form" novalidate>
-                        <div class="row margin-bottom-10">
+                        <div class="row margin-bottom-10" ng-init="this.$parent.$parent.$ctrl.form = form">
                             <label for="selected-user-surname" class="width-100">
                                 Фамилия
+                                <span class="form-error margin-left-20" ng-show="form.surname.$dirty && form.surname.$invalid"><i class="fa fa-exclamation-circle"></i>Вы не указали фамилию</span>
                             </label>
                             <input type="text"
                                    name="surname"
@@ -95,21 +102,40 @@
                                    placeholder="Введите фамилию"
                                    required
                                    ng-model="$ctrl.selectedUser.surname">
-                            <span class="form-error" ng-show="form.surname.$dirty && form.surname.$invalid">Вы не указали фамилию</span>
                         </div>
                         <div class="row margin-bottom-10">
-                            <label for="selected-user-name">Имя</label>
-                            <input type="text" name="name" id="selected-user-name" class="width-100" placeholder="Введите имя" ng-model="$ctrl.selectedUser.name">
+                            <label for="selected-user-name">
+                                Имя
+                                <span class="form-error margin-left-20" ng-show="form.name.$dirty && form.name.$invalid"><i class="fa fa-exclamation-circle"></i>Вы не указали имя</span>
+                            </label>
+                            <input type="text"
+                                   name="name"
+                                   id="selected-user-name"
+                                   class="width-100"
+                                   placeholder="Введите имя"
+                                   required
+                                   ng-model="$ctrl.selectedUser.name">
                         </div>
                         <div class="row margin-bottom-10">
                             <label for="selected-user-fname">Отчество</label>
-                            <input type="text" name="fname" id="selected-user-fname" class="width-100" placeholder="Введите отчество" ng-model="$ctrl.selectedUser.fname">
+                            <input type="text"
+                                   name="fname"
+                                   id="selected-user-fname"
+                                   class="width-100"
+                                   placeholder="Введите отчество"
+                                   ng-model="$ctrl.selectedUser.fname">
                         </div>
                         <div class="row margin-bottom-10">
                             <label for="selected-user-division">Структурное подразделение</label>
                             <div class="combined-input">
-                                <input type="text" name="email" id="selected-user-division" class="width-100" placeholder="Выберите структурное подразделение" ng-model="$ctrl.selectedUser.email">
-                                <button type="button" ng-click="this.$parent.$parent.$ctrl.openEditUserDivisionsModal()"><i class="fa fa-building"></i></button>
+                                <input type="text"
+                                       name="email"
+                                       id="selected-user-division"
+                                       class="width-100"
+                                       placeholder="Выберите структурное подразделение"
+                                       disabled
+                                       ng-model="$ctrl.divisions.getDivisionById($ctrl.selectedUser.divisionId).titleShort">
+                                <button type="button" title="Выбрать структурное подразделение" ng-click="this.$parent.$parent.$ctrl.openEditUserDivisionsModal()"><i class="fa fa-building"></i></button>
                             </div>
                         </div>
                         <div class="row margin-bottom-10">
@@ -121,15 +147,25 @@
                             <input type="text" name="email" id="selected-user-email" class="width-100" placeholder="Введите e-mail" ng-model="$ctrl.selectedUser.email">
                         </div>
                         <div class="row margin-bottom-10">
-                            <label for="selected-user-account">Учетная запись Active Directory</label>
-                            <input type="text" name="account" id="selected-user-account" class="width-100" placeholder="Введите учетную запись" ng-model="$ctrl.selectedUser.account">
+                            <label for="selected-user-account">
+                                Учетная запись Active Directory
+                                <span class="form-error margin-left-20" ng-show="form.account.$dirty && form.account.$invalid"><i class="fa fa-exclamation-circle"></i>Вы не указали учетную запись</span>
+
+                            </label>
+                            <input type="text"
+                                   name="account"
+                                   id="selected-user-account"
+                                   class="width-100"
+                                   placeholder="Введите учетную запись"
+                                   required
+                                   ng-model="$ctrl.selectedUser.account">
                         </div>
                         <div class="row">
                             <div class="width-50 padding-right-5">
-                                <button class="green width-100" title="Сохранить изменения" ng-disabled="form.$pristine || form.$invalid">Сохранить</button>
+                                <button class="green width-100" title="Сохранить изменения" ng-disabled="form.$pristine || (form.$invalid && form.$dirty)">Сохранить</button>
                             </div>
                             <div class="width-50 padding-left-5">
-                                <button type="button" class="red width-100" title="Отмена" ng-click="this.$parent.$parent.$ctrl.closeEditUserModal(form)">Отмена</button>
+                                <button type="button" class="red width-100" title="Отмена" ng-click="this.$parent.$parent.$ctrl.closeEditUserModal()">Отмена</button>
                             </div>
                         </div>
                     </form>

@@ -4,7 +4,7 @@
              ng-repeat="tab in $ctrl.tabs track by $index"
              ng-class="{ 'active': tab.tabActive === true }"
              ng-style="{ 'width': tab.tabWidth }"
-             ng-click="$ctrl.select(tab)"
+             ng-click="$ctrl.selectTabById(tab.id)"
              title="{{ tab.title }}">
             {{ tab.title }}
         </div>

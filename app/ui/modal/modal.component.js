@@ -23,7 +23,7 @@ export const ModalComponent = angular
         },
         transclude: true,
         controller: ['$log', '$element', '$timeout', 'ModalsService', function ($log, $element, $timeout, ModalsService) {
-            var modalOpened = this.modalOpened = false;
+            var modalOpened = this.modalOpened = true;
             var modalWidth = this.modalWidth = '300px';
             var modalHeight = this.modalHeight = 'auto';
             var modalDepth = this.modalDepth = 1;
@@ -76,9 +76,13 @@ export const ModalComponent = angular
             };
 
 
-            this.close = function () {
-                this.modalOpened = false;
-                this.onClose();
+            this.close = function (withCallback) {
+                if (withCallback !== undefined && typeof withCallback === 'boolean' && withCallback === true) {
+                    this.modalOpened = false;
+                    this.onClose();
+                } else if (withCallback === undefined || withCallback !== undefined && typeof withCallback === 'boolean' && withCallback === false) {
+                    this.modalOpened = false;
+                }
                 return this;
             };
 

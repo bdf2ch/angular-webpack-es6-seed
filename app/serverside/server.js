@@ -29,11 +29,12 @@ app.post('/api', function (request, response) {
     let query = '';
     switch (request.body.action) {
         case 'getAllUsers': query = 'SELECT * FROM users ORDER BY surname, name, id ASC'; break;
+        case 'getAllDivisions': query = 'SELECT * FROM divisions ORDER BY parent_id ASC'; break;
     }
     connection.query(query, function (error, results, fields) {
         if (error) {
             console.log(error);
-            throw error
+            throw error;
         };
         //console.log(results);
         response.end(JSON.stringify(results));

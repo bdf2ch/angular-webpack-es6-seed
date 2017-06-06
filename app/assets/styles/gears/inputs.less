@@ -3,6 +3,7 @@
 @input-height: 30px;
 @input-font-size: 13px;
 @input-font-color: black;
+@input-font-color-disabled: #757575;
 @input-background-color: transparent;
 @input-border-color: #CFD8DC;
 @label-font-color: #999;
@@ -20,6 +21,10 @@ input[type='text'] {
   border: none;
   border-bottom: 1px solid @input-border-color;
   outline: none;
+
+  &[disabled] {
+    color: @input-font-color-disabled;
+  }
 }
 
 label {

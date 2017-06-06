@@ -13,15 +13,19 @@ export let TabComponent = angular
             id: '@',
             title: '@',
             width: '@',
-            scope: '='
         },
         require: {
             tabsCtrl: '^tabs'
         },
         controller: ['$log', function ($log) {
-            var tabActive = this.tabActive = false;
-            var tabWidth = this.tabWidth = 'auto';
+            let tabActive = this.tabActive = false; // Флаг активной вкладки
+            let tabWidth = this.tabWidth = 'auto';  // Ширина вкладки
 
+
+            /**
+             * Инициализация компонента
+             * Производит регистрацию вкладки в контроллере родительского компонента
+             */
             this.$onInit = function () {
                 if (this.id === undefined || this.id === '') {
                     $log.error('tab directive: "id" attribute must be specified');

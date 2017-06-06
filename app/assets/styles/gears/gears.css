@@ -269,6 +269,9 @@ input[type='text'] {
   border-bottom: 1px solid #CFD8DC;
   outline: none;
 }
+input[type='text'][disabled] {
+  color: #757575;
+}
 label {
   display: inline-block;
   font-size: 13px;
@@ -278,6 +281,9 @@ label {
   margin-top: 5px;
   font-size: 12px;
   color: #F44336;
+}
+.form-error .fa {
+  margin-right: 5px;
 }
 .combined-input {
   display: flex;
@@ -311,6 +317,9 @@ button {
   border-radius: 2px;
   outline: none;
   cursor: pointer;
+}
+button[disabled] {
+  cursor: default;
 }
 button.blue {
   background: #039BE5;
