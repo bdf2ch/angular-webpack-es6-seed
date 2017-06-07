@@ -12,11 +12,17 @@
   z-index: 100;
 }
 .modal-component {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   border-radius: 2px;
   box-shadow: 0 1px 30px rgba(0, 0, 0, 0.15);
 }
 .modal-component .modal-header {
-  height: auto;
+  display: flex;
+  flex-direction: column;
+  height: 130px;
   background: #BBDEFB;
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;
@@ -87,8 +93,24 @@
 }
 .modal-component .modal-content {
   overflow: auto;
-  height: auto;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-around;
   background: white;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+.modal-component .modal-content .modal-content-wrapper {
+  height: 100%;
+}
+.modal-component .modal-footer {
+  display: flex;
+  flex-direction: column;
+  justify-self: flex-end;
+  width: 100%;
+  height: auto;
+  background: #E1F5FE;
   border-bottom-left-radius: 2px;
   border-bottom-right-radius: 2px;
 }

@@ -2,7 +2,7 @@
     <div class="modal-component" ng-style="{ 'width': $ctrl.modalWidth }">
         <div class="modal-header">
             <div class="header-controls">
-                <span class="title">{{ $ctrl.title }}</span>
+                <span class="title">{{ $ctrl.label }}</span>
                 <span class="control" title="Закрыть" ng-click="$ctrl.close(true)">Закрыть</span>
             </div>
             <div class="header-content">
@@ -13,6 +13,9 @@
                 </div>
             </div>
         </div>
-        <div class="modal-content" ng-style="{'height': $ctrl.modalHeight}" ng-transclude></div>
+        <div ng-transclude></div>
+        <!--
+        <div class="modal-content" ng-style="{'height': $ctrl.modalHeight, 'bottom': $ctrl.modalFooterHeight }" ng-transclude></div>
+        -->
     </div>
 </div>

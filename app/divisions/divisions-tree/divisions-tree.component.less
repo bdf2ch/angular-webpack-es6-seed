@@ -4,7 +4,7 @@
 @divisions-list-nested-items-padding-left: 25px;
 @divisions-list-item-background-color-hover: #E1F5FE;
 @divisions-list-item-background-color-selected: #B3E5FC;
-@divisions-list-item-icon-font-color: #01579B;
+@divisions-list-item-icon-font-color: #0288D1;
 
 
 .divisions-tree-component {
@@ -22,8 +22,8 @@
 
 
     .item-details {
-      padding-top: 7px;
-      padding-bottom: 7px;
+      padding-top: 10px;
+      padding-bottom: 10px;
       .padding-left-10;
       .padding-right-10;
       cursor: pointer;
@@ -38,6 +38,8 @@
 
 
       .icon {
+        //float: left;
+        //display: block;
         .fa {
           color: @divisions-list-item-icon-font-color;
         }
@@ -78,12 +80,18 @@
 
 
       .title {
+        //float: left;
+        //display: block;
+
         //font-size: 15px;
         &.selected {
           font-weight: bold;
         }
       }
       .bullet {
+        //float: left;
+        //display: block;
+        //width: 10px;
         //float: right;
         //margin-left: @divisions-list-nested-items-padding-left;
       }

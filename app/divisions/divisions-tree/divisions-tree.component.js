@@ -1,5 +1,6 @@
 import angular from 'angular';
 import { DivisionsModule } from '../divisions.module';
+import { DivisionsTreesService } from './divisions-trees.service';
 import './divisions-tree.template.html';
 import './divisions-tree.component.css';
 
@@ -8,15 +9,26 @@ export const DivisionsTreeComponent = angular
     .component('divisionsTree', {
         templateUrl: 'divisions/divisions-tree/divisions-tree.template.html',
         bindings: {
+            id: '@',
             divisions: '<',
             expandOnSelect: '@',
             collapseOnSelect: '@',
             onSelect: '&'
         },
-        controller: function ($log) {
-            this.stack = [];
-            this.root = [];
-            this.selectedItem = undefined;
+        controller: ['$log', 'DivisionsTreesService', function ($log, DivisionsTreesService) {
+            let stack = this.stack = [];
+            let root = this.root = [];
+            let selectedItem = this.selectedItem = undefined;
+
+
+            /**
+             * Инициализация компонента
+             * Регистрирует компонент в серисе управления деревьями структурных подразделений
+             */
+            this.$onInit = function () {
+                DivisionsTreesService.register(this);
+            };
+
 
             this.$onChanges = function (changes) {
                 $log.info(changes);
@@ -49,6 +61,7 @@ export const DivisionsTreeComponent = angular
                 }
             };
 
+
             this.addItem = function (parameters) {
                 //$log.log(parameters);
                 if (parameters !== undefined) {
@@ -62,13 +75,11 @@ export const DivisionsTreeComponent = angular
                             children: []
                         };
                         if (division.parentId === 0) {
-                            $log.log('pushing to root');
                             this.root.push(division);
                         } else {
                             var length = this.stack.length;
                             for (var i = 0; i < length; i++) {
                                 if (this.stack[i].id === division.parentId) {
-                                    $log.log('pushing to child');
                                     this.stack[i].children.push(division);
                                 }
                             }
@@ -82,28 +93,32 @@ export const DivisionsTreeComponent = angular
             };
 
 
+            /**
+             * Разворачивает элемент по идентификатору
+             * @param id {String} - идентификатор элемента
+             */
             this.expandItem = function (id) {
-                $log.log('expandItem');
-                var length = this.stack.length;
-                for (var i = 0; i < length; i++) {
-                    if (this.stack[i].id === id) {
-                        this.stack[i].opened = true;
-                    }
-                }
+                const itemById = (item, index, array) => item.id === id;
+                const item = stack.find(itemById);
+                item.opened = item !== undefined ? true : true;
             };
 
 
+            /**
+             * Сворачивает элемент по идентификатору
+             * @param id {String} - идентификатор элемнта
+             */
             this.collapseItem = function (id) {
-                if (id !== undefined) {
-                    var length = this.stack.length;
-                    for (var i = 0; i < length; i++) {
-                        if (this.stack[i].id === id) {
-                            this.stack[i].opened = false;
-                        }
-                    }
-                }
+                const itemById = (item, index, array) => item.id === id;
+                const item = stack.find(itemById);
+                item.opened = item !== undefined ? false : false;
             };
 
+
+            /**
+             * Выбирает элемент дерева по идентификатору
+             * @param id {String} - идентификатор элемента
+             */
             this.selectItem = function (id) {
                 if (id !== undefined) {
                     var length = this.stack.length;
@@ -114,7 +129,6 @@ export const DivisionsTreeComponent = angular
                                 if (this.collapseOnSelect === true) {
                                     this.stack[i].opened = false;
                                 }
-                                //$log.log('selected', this.stack[i]);
                                 this.selectedItem = this.stack[i];
                                 this.onSelect({item: this.stack[i]});
                             } else {
@@ -124,7 +138,6 @@ export const DivisionsTreeComponent = angular
                                 }
                                 this.onSelect({item: this.stack[i]});
                                 this.selectedItem = this.stack[i];
-                                //$log.log('selected', this.stack[i]);
                             }
                         } else {
                             this.stack[i].selected = false;
@@ -133,5 +146,25 @@ export const DivisionsTreeComponent = angular
                 }
             };
 
-        }
+
+            /**
+             * Возвращает выбранный элемент дерева
+             * @returns {string|null|undefined|*|Object}
+             */
+            this.getSelectedItem = function () {
+                return this.selectedItem;
+            };
+
+
+            /**
+             * Сбрасывает выбранный элемент
+             */
+            this.deselect = function () {
+                stack.forEach((item) => {
+                    item.selected = false;
+                });
+                this.selectedItem = undefined;
+            };
+
+        }]
     });

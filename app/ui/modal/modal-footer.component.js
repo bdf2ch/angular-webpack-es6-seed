@@ -1,14 +1,13 @@
 import angular from 'angular';
 import { UiModule } from '../ui.module';
 
-const ModalFooterComponent = angular
+export const ModalFooterComponent = angular
     .module(UiModule.name)
     .component('modalFooter', {
         transclude: true,
-        requires: {
+        template: '<div class="modal-footer"><div class="modal-footer-content-wrapper" ng-transclude></div></div>',
+        require: {
             modalCtrl: '^modal'
         },
-        controller: ['$log', function ($log) {
-
-        }]
+        controller: ['$log', function ($log) {}]
     });

@@ -1,5 +1,7 @@
 import angular from 'angular';
 import { UiModule } from '../ui.module';
+import { ModalContentComponent } from './modal-content.component';
+import { ModalFooterComponent } from './modal-footer.component';
 import { ModalsService } from './modals.service';
 import './modal.template.html';
 import './modal.component.css';
@@ -12,9 +14,8 @@ export const ModalComponent = angular
         bindings: {
             id: '@',
             width: '@',
-            height: '@',
             depth: '@',
-            title: '@',
+            label: '@',
             caption: '@',
             description: '@',
             icon: '@',
@@ -23,24 +24,17 @@ export const ModalComponent = angular
         },
         transclude: true,
         controller: ['$log', '$element', '$timeout', 'ModalsService', function ($log, $element, $timeout, ModalsService) {
-            var modalOpened = this.modalOpened = true;
+            var modalOpened = this.modalOpened = false;
             var modalWidth = this.modalWidth = '300px';
-            var modalHeight = this.modalHeight = 'auto';
             var modalDepth = this.modalDepth = 1;
             var modalCaption = this.modalCaption = '';
             var modalDescription = this.modalDescription = '';
             var modalIcon = this.modalIcon = '';
 
 
-            this.$postLink = function () {};
-
-
             this.$onInit = function () {
                 if (this.width !== undefined && this.width !== '' && !isNaN(this.width)) {
                     this.modalWidth = parseInt(this.width) + 'px';
-                }
-                if (this.height !== undefined && this.height !== '' && !isNaN(this.height)) {
-                    this.modalHeight = parseInt(this.height) + 'px';
                 }
                 if (this.depth !== undefined && this.depth !== '' && !isNaN(this.depth)) {
                     this.modalDepth = parseInt(this.depth);
@@ -59,7 +53,7 @@ export const ModalComponent = angular
 
 
             this.$onChanges = function (changes) {
-                //$log.log(changes);
+                $log.log(changes);
             };
 
 
@@ -82,6 +76,14 @@ export const ModalComponent = angular
                     this.onClose();
                 } else if (withCallback === undefined || withCallback !== undefined && typeof withCallback === 'boolean' && withCallback === false) {
                     this.modalOpened = false;
+                }
+                return this;
+            };
+
+
+            this.setCaption = function (caption) {
+                if (caption !== undefined && caption !== '') {
+                    this.modalCaption = caption.toString();
                 }
                 return this;
             };

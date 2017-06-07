@@ -1,5 +1,6 @@
 <div id="users-list">
 
+    <!-- Инпут поиска пользователей -->
     <div class="combined-input">
         <input type="text"
                name="search"
@@ -16,11 +17,19 @@
             <i class="fa fa-building"></i>
         </button>
     </div>
-    <div class="row margin-bottom-20">
-        <code>Структурное подразделение:</code>
+
+
+    <!-- Фильтры списка пользователей -->
+    <div id="users-list-filters" class="row" ng-show="$ctrl.selectedDivisionId !== 0 && $ctrl.filtered === true">
+        <div class="filter">
+            <i class="fa fa-building"></i>
+            {{ $ctrl.divisions.getDivisionById($ctrl.selectedDivisionId).titleShort }}
+            <span class="cancel" title="Отменить фильтр" ng-click="$ctrl.cancelUserListDivisionFilter()">&times;</span>
+        </div>
     </div>
 
 
+    <!-- Шапка списка пользователей -->
     <div id="user-list-header">
         <div class="header-image"></div>
         <div class="header-user-name-position"><i class="fa fa-user"></i>Имя / должность</div>
@@ -29,6 +38,8 @@
         <div class="header-user-division"><i class="fa fa-building"></i>Стр. подразделение / филиал</div>
     </div>
 
+
+    <!-- Список пользователей -->
     <div class="list-item" ng-repeat="user in $ctrl.users | filter: { 'fio': $ctrl.search } track by $id(user.id)" ng-click="$ctrl.selectUser(user)">
         <div class="list-image margin-right-20">
             <i class="fa fa-user"></i>
@@ -36,7 +47,7 @@
         <div class="list-content user-name-position">
             <span class="primary name">{{ user.fio }}</span>
             <span class="secondary position" ng-show="user.position !== ''">{{ user.position }}</span>
-            <span class="secondary division" ng-init="division = $ctrl.divisions.getDivisionById(user.divisionId)">{{ $ctrl.divisions.getDivisionById(division.departmentId).titleShort }}</span>
+            <span class="secondary division">{{ $ctrl.divisions.getDepartmentByDivisionId(user.divisionId).titleShort }}</span>
         </div>
         <div class="list-content user-email">
             <span class="primary">{{ user.email }}</span>
@@ -46,133 +57,170 @@
         </div>
         <div class="list-content user-division">
             <span class="primary">{{ $ctrl.divisions.getDivisionById(user.divisionId).titleShort }}</span>
-            <span class="secondary" ng-show="division.isDepartment === false" ng-init="div = $ctrl.divisions.getDivisionById(user.divisionId)">{{ $ctrl.divisions.getDivisionById(div.departmentId).titleShort }}</span>
+            <span class="secondary" ng-show="$ctrl.divisions.getDivisionById(user.divisionId).isDepartment === false">{{ $ctrl.divisions.getDepartmentByDivisionId(user.divisionId).titleShort }}</span>
         </div>
     </div>
 
 
     <!-- Модальное окно выбора структурного подразделения для фильтра списка пользователей -->
     <modal id="users-list-divisions-modal"
-           title="управление пользователями"
+           label="управление пользователями"
            caption="Выберите структурное подразделение"
            icon="fa-building"
            width="400"
-           height="400">
+           on-close="$ctrl.closeDivisionsModal()">
+        <modal-content height="300">
+            <divisions-tree
+                    id="users-list-divisions-tree"
+                    divisions="$ctrl.divisions.getAllDivisions()"
+                    expand-on-select="true"
+                    collapse-on-select="true"
+                    on-select="$ctrl.selectUserListDivision(item)">
+            </divisions-tree>
+        </modal-content>
+        <modal-footer>
+            <div class="row padding-10">
+                <div class="width-50 padding-right-5">
+                    <button class="width-100 green"
+                            ng-disabled="$ctrl.trees.getById('users-list-divisions-tree').getSelectedItem() === undefined"
+                            ng-click="$ctrl.filterUserList()">Выбрать</button>
+                </div>
+                <div class="width-50 padding-left-5">
+                    <button class="width-100 red" ng-click="$ctrl.modals.getById('users-list-divisions-modal').close(true)">Отмена</button>
+                </div>
+            </div>
+        </modal-footer>
     </modal>
 
 
     <!-- Модальное окно выбора струткрного подразделения при редактировании пользователя -->
     <modal id="edit-user-divisions-modal"
-           title="управление пользователями"
+           label="управление пользователями"
            caption="Выберите структурное подразделение"
            icon="fa-building"
            width="400"
            height="400"
            depth="2">
+        <modal-content height="300">
             <divisions-tree
                     divisions="$ctrl.divisions.getAllDivisions()"
                     expand-on-select="true"
                     collapse-on-select="true"
-                    on-select="$ctrl.selectEditUserDivision()">
+                    on-select="$ctrl.selectEditUserDivision(item)">
             </divisions-tree>
+        </modal-content>
+        <modal-footer>
+            <div class="row padding-10">
+                <div class="width-50 padding-right-5">
+                    <button class="width-100 green">Выбрать</button>
+                </div>
+                <div class="width-50 padding-left-5">
+                    <button class="width-100 red">Отмена</button>
+                </div>
+            </div>
+        </modal-footer>
     </modal>
 
 
     <!-- Модальнок окно с информацие о выбранном пользователе -->
     <modal id="edit-user-modal"
-           title="управление пользователями"
+           label="управление пользователями"
            description="Информация о пользователе"
            icon="fa-user"
            width="500"
            depth="1"
            on-close="$ctrl.closeEditUserModal()">
-        <tabs id="selected-user">
-            <tab id="info" title="Личные данные" width="50%">
-                <div class="row padding-20 padding-top-5 padding-bottom-10">
-                    <form name="form" novalidate>
-                        <div class="row margin-bottom-10" ng-init="this.$parent.$parent.$ctrl.form = form">
-                            <label for="selected-user-surname" class="width-100">
-                                Фамилия
-                                <span class="form-error margin-left-20" ng-show="form.surname.$dirty && form.surname.$invalid"><i class="fa fa-exclamation-circle"></i>Вы не указали фамилию</span>
-                            </label>
-                            <input type="text"
-                                   name="surname"
-                                   id="selected-user-surname"
-                                   class="width-100"
-                                   placeholder="Введите фамилию"
-                                   required
-                                   ng-model="$ctrl.selectedUser.surname">
-                        </div>
-                        <div class="row margin-bottom-10">
-                            <label for="selected-user-name">
-                                Имя
-                                <span class="form-error margin-left-20" ng-show="form.name.$dirty && form.name.$invalid"><i class="fa fa-exclamation-circle"></i>Вы не указали имя</span>
-                            </label>
-                            <input type="text"
-                                   name="name"
-                                   id="selected-user-name"
-                                   class="width-100"
-                                   placeholder="Введите имя"
-                                   required
-                                   ng-model="$ctrl.selectedUser.name">
-                        </div>
-                        <div class="row margin-bottom-10">
-                            <label for="selected-user-fname">Отчество</label>
-                            <input type="text"
-                                   name="fname"
-                                   id="selected-user-fname"
-                                   class="width-100"
-                                   placeholder="Введите отчество"
-                                   ng-model="$ctrl.selectedUser.fname">
-                        </div>
-                        <div class="row margin-bottom-10">
-                            <label for="selected-user-division">Структурное подразделение</label>
-                            <div class="combined-input">
+        <modal-content>
+            <tabs id="selected-user">
+                <tab id="info" title="Личные данные" width="50%">
+                    <div class="row padding-20 padding-top-5 padding-bottom-10">
+                        <form name="form" novalidate>
+                            <div class="row margin-bottom-10" ng-init="this.$parent.$parent.$ctrl.form = form">
+                                <label for="selected-user-surname" class="width-100">
+                                    Фамилия
+                                    <span class="form-error margin-left-20" ng-show="form.surname.$dirty && form.surname.$invalid"><i class="fa fa-exclamation-circle"></i>Вы не указали фамилию</span>
+                                </label>
                                 <input type="text"
-                                       name="email"
-                                       id="selected-user-division"
+                                       name="surname"
+                                       id="selected-user-surname"
                                        class="width-100"
-                                       placeholder="Выберите структурное подразделение"
-                                       disabled
-                                       ng-model="$ctrl.divisions.getDivisionById($ctrl.selectedUser.divisionId).titleShort">
-                                <button type="button" title="Выбрать структурное подразделение" ng-click="this.$parent.$parent.$ctrl.openEditUserDivisionsModal()"><i class="fa fa-building"></i></button>
+                                       placeholder="Введите фамилию"
+                                       required
+                                       ng-model="$ctrl.selectedUser.surname">
                             </div>
-                        </div>
-                        <div class="row margin-bottom-10">
-                            <label for="selected-user-position">Должность</label>
-                            <input type="text" name="position" id="selected-user-position" class="width-100" placeholder="Введите должность" ng-model="$ctrl.selectedUser.position">
-                        </div>
-                        <div class="row margin-bottom-10">
-                            <label for="selected-user-email">E-mail</label>
-                            <input type="text" name="email" id="selected-user-email" class="width-100" placeholder="Введите e-mail" ng-model="$ctrl.selectedUser.email">
-                        </div>
-                        <div class="row margin-bottom-10">
-                            <label for="selected-user-account">
-                                Учетная запись Active Directory
-                                <span class="form-error margin-left-20" ng-show="form.account.$dirty && form.account.$invalid"><i class="fa fa-exclamation-circle"></i>Вы не указали учетную запись</span>
+                            <div class="row margin-bottom-10">
+                                <label for="selected-user-name">
+                                    Имя
+                                    <span class="form-error margin-left-20" ng-show="form.name.$dirty && form.name.$invalid"><i class="fa fa-exclamation-circle"></i>Вы не указали имя</span>
+                                </label>
+                                <input type="text"
+                                       name="name"
+                                       id="selected-user-name"
+                                       class="width-100"
+                                       placeholder="Введите имя"
+                                       required
+                                       ng-model="$ctrl.selectedUser.name">
+                            </div>
+                            <div class="row margin-bottom-10">
+                                <label for="selected-user-fname">Отчество</label>
+                                <input type="text"
+                                       name="fname"
+                                       id="selected-user-fname"
+                                       class="width-100"
+                                       placeholder="Введите отчество"
+                                       ng-model="$ctrl.selectedUser.fname">
+                            </div>
+                            <div class="row margin-bottom-10">
+                                <label for="selected-user-division">Структурное подразделение</label>
+                                <div class="combined-input">
+                                    <input type="text"
+                                           name="email"
+                                           id="selected-user-division"
+                                           class="width-100"
+                                           placeholder="Выберите структурное подразделение"
+                                           disabled
+                                           ng-model="$ctrl.divisions.getDivisionById($ctrl.selectedUser.divisionId).titleShort">
+                                    <button type="button" title="Выбрать структурное подразделение" ng-click="this.$parent.$parent.$ctrl.openEditUserDivisionsModal()"><i class="fa fa-building"></i></button>
+                                </div>
+                            </div>
+                            <div class="row margin-bottom-10">
+                                <label for="selected-user-position">Должность</label>
+                                <input type="text" name="position" id="selected-user-position" class="width-100" placeholder="Введите должность" ng-model="$ctrl.selectedUser.position">
+                            </div>
+                            <div class="row margin-bottom-10">
+                                <label for="selected-user-email">E-mail</label>
+                                <input type="text" name="email" id="selected-user-email" class="width-100" placeholder="Введите e-mail" ng-model="$ctrl.selectedUser.email">
+                            </div>
+                            <div class="row margin-bottom-10">
+                                <label for="selected-user-account">
+                                    Учетная запись Active Directory
+                                    <span class="form-error margin-left-20" ng-show="form.account.$dirty && form.account.$invalid"><i class="fa fa-exclamation-circle"></i>Вы не указали учетную запись</span>
 
-                            </label>
-                            <input type="text"
-                                   name="account"
-                                   id="selected-user-account"
-                                   class="width-100"
-                                   placeholder="Введите учетную запись"
-                                   required
-                                   ng-model="$ctrl.selectedUser.account">
-                        </div>
-                        <div class="row">
-                            <div class="width-50 padding-right-5">
-                                <button class="green width-100" title="Сохранить изменения" ng-disabled="form.$pristine || (form.$invalid && form.$dirty)">Сохранить</button>
+                                </label>
+                                <input type="text"
+                                       name="account"
+                                       id="selected-user-account"
+                                       class="width-100"
+                                       placeholder="Введите учетную запись"
+                                       required
+                                       ng-model="$ctrl.selectedUser.account">
                             </div>
-                            <div class="width-50 padding-left-5">
-                                <button type="button" class="red width-100" title="Отмена" ng-click="this.$parent.$parent.$ctrl.closeEditUserModal()">Отмена</button>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
+                </tab>
+                <tab id="permissions" title="Права доступа" width="50%"></tab>
+            </tabs>
+        </modal-content>
+        <modal-footer>
+            <div class="row padding-10">
+                <div class="width-50 padding-right-5">
+                    <button class="green width-100" title="Сохранить изменения" ng-disabled="$ctrl.form.$pristine || ($ctrl.form.$invalid && $ctrl.form.$dirty)">Сохранить</button>
                 </div>
-            </tab>
-            <tab id="permissions" title="Права доступа" width="50%"></tab>
-        </tabs>
+                <div class="width-50 padding-left-5">
+                    <button type="button" class="red width-100" title="Отмена" ng-click="this.$parent.$parent.$ctrl.closeEditUserModal()">Отмена</button>
+                </div>
+            </div>
+        </modal-footer>
     </modal>
 
 

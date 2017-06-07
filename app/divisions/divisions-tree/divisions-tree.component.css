@@ -9,8 +9,8 @@
   font-size: 14px;
 }
 .divisions-tree-component .tree-item .item-details {
-  padding-top: 7px;
-  padding-bottom: 7px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   padding-left: 10px;
   padding-right: 10px;
   cursor: pointer;
@@ -22,7 +22,7 @@
   background: #B3E5FC;
 }
 .divisions-tree-component .tree-item .item-details .icon .fa {
-  color: #01579B;
+  color: #0288D1;
 }
 .divisions-tree-component .tree-item .item-details .bullet {
   margin-right: 5px;
@@ -39,7 +39,7 @@
   width: 12px;
 }
 .divisions-tree-component .tree-item .children-items .icon .fa {
-  color: #01579B;
+  color: #0288D1;
 }
 .divisions-tree-component .tree-item .children-items .title.selected {
   font-weight: bold;

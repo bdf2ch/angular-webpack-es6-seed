@@ -1,4 +1,5 @@
 @modal-background-color: rgba(0, 0, 0, 0.3);
+@modal-header-height: 130px;
 @modal-header-controls-height: 30px;
 @modal-header-controls-color: #1565C0;
 @modal-header-controls-size: 13px;
@@ -10,6 +11,8 @@
 @modal-header-description-size: 13px;
 @modal-header-description-color: #1E88E5;
 @modal-header-background-color: #BBDEFB;
+@modal-footer-background-color: #E1F5FE;
+
 
 .modal-background {
   position: fixed;
@@ -26,11 +29,21 @@
 }
 
 .modal-component {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   border-radius: 2px;
   box-shadow: 0 1px 30px rgba(0,0,0,0.15);
 
   .modal-header {
-    height: auto;
+    //position: absolute;
+    //top: 0px;
+    //left: 0px;
+    //right: 0px;
+    display: flex;
+    flex-direction: column;
+    height: @modal-header-height;
     background: @modal-header-background-color;
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
@@ -116,10 +129,36 @@
 
   .modal-content {
     overflow: auto;
-    height: auto;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: space-around;
+    //position: absolute;
+    //top: @modal-header-height;
+    //left: 0px;
+    //right: 0px;
+    //bottom: 0px;
     background: white;
     border-bottom-left-radius: 2px;
     border-bottom-right-radius: 2px;
+
+    .modal-content-wrapper {
+      height: 100%;
+    }
   }
 
+  .modal-footer {
+    //position: absolute;
+    //left: 0px;
+    //right: 0px;
+    //bottom: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-self: flex-end;
+    width: 100%;
+    height: auto;
+    background: @modal-footer-background-color;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+  }
 }

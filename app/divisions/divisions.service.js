@@ -57,6 +57,19 @@ export const DivisionsService = angular
                     const found = (item, index, array) => item.id === id;
                     return divisions.find(found);
                 }
+            },
+
+
+            getDepartmentByDivisionId: function (id) {
+                if (id !== undefined) {
+                    const divisionById = (item, index, array) => item.id === id;
+                    const division = divisions.find(divisionById);
+                    if (division !== undefined) {
+                        const departmentByDivisionId = (item, index, array) => item.id === division.departmentId;
+                        const department = divisions.find(departmentByDivisionId);
+                        return department;
+                    }
+                }
             }
 
         };

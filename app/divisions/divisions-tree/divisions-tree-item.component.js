@@ -16,7 +16,6 @@ export const DivisionsTreeItemComponent = angular
 
             this.$onInit = function () {
                 this.itemLevel = parseInt(this.level);
-                console.log('level = ', this.itemLevel);
             };
 
         }
