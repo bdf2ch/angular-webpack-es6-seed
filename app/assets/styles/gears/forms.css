@@ -6,3 +6,8 @@
 .form-error .fa {
   margin-right: 5px;
 }
+.form-caption {
+  font-size: 12px;
+  color: gray;
+  text-transform: uppercase;
+}

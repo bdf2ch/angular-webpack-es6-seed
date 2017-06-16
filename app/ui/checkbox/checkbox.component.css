@@ -1,0 +1,28 @@
+.checkbox-component {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 35px;
+  height: 14px;
+  box-sizing: border-box;
+  background: #bfd9ed;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.checkbox-component.on {
+  justify-content: flex-end;
+}
+.checkbox-component.on .tumbler {
+  background: #1E88E5;
+  border: 1px solid #1E88E5;
+}
+.checkbox-component .tumbler {
+  width: 20px;
+  height: 20px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid lightgray;
+  transition: all 0.3s linear;
+}

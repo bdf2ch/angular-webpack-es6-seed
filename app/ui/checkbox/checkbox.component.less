@@ -1,0 +1,38 @@
+@checkbox-width: 35px;
+@checkbox-height: 14px;
+@checkbox-tumbler-width: 20px;
+@checkbox-background-color: #bfd9ed;
+@checkbox-tumbler-background-color: white;
+@checkbox-tumbler-background-color-active: #1E88E5;
+
+
+.checkbox-component {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: @checkbox-width;
+  height: @checkbox-height;
+  box-sizing: border-box;
+  background: @checkbox-background-color;
+  border-radius: 6px;
+  cursor: pointer;
+
+    &.on {
+      justify-content: flex-end;
+      .tumbler {
+        background: @checkbox-tumbler-background-color-active;
+        border: 1px solid @checkbox-tumbler-background-color-active;
+      }
+    }
+
+    .tumbler {
+      width: @checkbox-tumbler-width;
+      height: @checkbox-tumbler-width;
+      box-sizing: border-box;
+      border-radius: 50%;
+      background: @checkbox-tumbler-background-color;
+      border: 1px solid lightgray;
+      transition: all 0.3s linear;
+    }
+}

@@ -3,6 +3,15 @@ import { Model } from './model';
 export class User extends Model {
     constructor (parameters) {
         super();
+
+        this.permissions = {
+            allowEditViolations: false,
+            allowConfirmViolations: false,
+            allowAddFiles: false,
+            allowDeleteFiles: false,
+            isAdministrator: false
+        };
+
         if (parameters) {
             this.id = parameters['ID'] !== undefined ? parameters['ID'] : 0;
             this.divisionId = parameters['DIVISION_ID'] !== undefined ? parameters['DIVISION_ID'] : 0;

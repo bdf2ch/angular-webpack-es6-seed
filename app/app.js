@@ -16,6 +16,7 @@ import { TabsComponent } from './ui/tabs/tabs.component';
 import { TabComponent } from './ui/tabs/tab.component';
 import { TabsService } from './ui/tabs/tabs.service';
 import { TestController } from './violations/test.controller';
+import { CheckBoxComponent } from './ui/checkbox/checkbox.component';
 
 import { UsersListComponent } from './users/users-list/users-list.component';
 import { UsersService } from './users/users.service';
