@@ -31,7 +31,6 @@ export const DivisionsTreeComponent = angular
 
 
             this.$onChanges = function (changes) {
-                $log.info(changes);
                 if (changes.divisions) {
                     var length = changes.divisions.currentValue.length;
                     for (var i = 0; i < length; i++) {
@@ -112,6 +111,13 @@ export const DivisionsTreeComponent = angular
                 const itemById = (item, index, array) => item.id === id;
                 const item = stack.find(itemById);
                 item.opened = item !== undefined ? false : false;
+            };
+
+
+            this.collapseAll = function () {
+                this.stack.forEach((item) => {
+                    item.opened = false;
+                });
             };
 
 

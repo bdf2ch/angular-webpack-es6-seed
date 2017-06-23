@@ -9,6 +9,9 @@ export let TabsComponent = angular
     .component('tabs', {
         transclude: true,
         templateUrl: 'ui/tabs/tabs.template.html',
+        bindings: {
+            id: '@'
+        },
         controller: ['$log', 'TabsService', function ($log, TabsService) {
             let tabs = this.tabs = [];  // Массив вкладок
 

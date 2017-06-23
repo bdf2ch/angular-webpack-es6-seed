@@ -2,24 +2,24 @@
 <html lang="en" ng-app="app">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
-    <link rel="stylesheet" href="dist/styles.css">
+    <!--<link rel="stylesheet" href="dist/styles.css">-->
 <link href="styles.css" rel="stylesheet"></head>
 <body>
-<script src="dist/app.bundle.js"></script>
-<script src="dist/common.bundle.js"></script>
-<violations-list></violations-list>
+    <script src="dist/app.bundle.js"></script>
+    <script src="dist/common.bundle.js"></script>
+
+    <div id="app-header"></div>
+    <div id="app-wrapper">
+        <div id="app-content-wrapper" ng-view></div>
+    </div>
 
 
 
+<!--
 
 <div ng-controller="TestController">
-    <modal id="second-modal" depth="6" title="новый пользователь" width="350" height="350" caption="Выберите структурное подразделение" icon="fa fa-building" on-close="this.onCloseModal()">
-        <tabs>
-            <tab title="tab1"></tab>
-        </tabs>
-    </modal>
-
 
 
     <button ng-click="openModal()" title="open modal">open modal</button>
@@ -33,11 +33,34 @@
            icon="fa fa-user"
            on-open="onOpenModal()"
            ng-cloak>
-        <div style="padding: 20px;"><input type="text" name="" id=""></div>
-        <div style="padding: 20px;"><input type="text" name="" id=""></div>
-        <h1 style="padding:  50px;">test</h1>
-        <button ng-click="openSecondModal()">Open second modal</button>
+        <tabs>
+            <tab id="tab1" title="Данные пользователя" width="50%">
+                <div class="padding-20">
+                    first tab content
+                    <button ng-click="openSecondModal()">Open second modal</button><br><br>
+                    <div>
+                        <label for="test">Имя пользователя</label>
+                        <input type="text" name="" id="test" placeholder="Введите имя">
+                    </div>
+                    <div class="margin-top-10">
+                        <label for="fname">Отчество пользователя</label>
+                        <input type="text" name="" id="fname" placeholder="Введите отчество">
+                    </div>
+                    <div class="margin-top-10">
+                        <label for="surname">Фамилия пользователя</label>
+                        <input type="text" name="" id="surname" placeholder="Введите фамилию">
+                    </div>
+                </div>
+            </tab>
+            <tab id="tab3" title="Права пользователя" width="50%">
+                <div class="padding-10">third tab content</div>
+            </tab>
+        </tabs>
+        <modal id="second-modal" depth="6" title="новый пользователь" width="350" height="350" caption="Выберите структурное подразделение" icon="fa fa-building" on-close="this.onCloseModal()"></modal>
     </modal>
 </div>
+-->
+
+
 <script type="text/javascript" src="common.bundle.js"></script><script type="text/javascript" src="app.bundle.js"></script></body>
 </html>

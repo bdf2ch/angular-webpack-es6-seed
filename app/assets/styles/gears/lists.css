@@ -8,14 +8,14 @@
   box-sizing: border-box;
   border-radius: 2px;
   background: white;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
   cursor: pointer;
 }
 .list-item:last-of-type {
   margin-bottom: 0px;
 }
 .list-item:hover {
-  background: #f0ffff;
+  background: #F9FBE7;
 }
 .list-item .list-image .fa {
   width: 40px;
@@ -37,6 +37,8 @@
   color: #0277BD;
 }
 .list-item .list-content .secondary {
+  margin-top: 5px;
   font-size: 14px;
+  line-height: 14px;
   color: #90A4AE;
 }

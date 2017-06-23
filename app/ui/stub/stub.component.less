@@ -1,0 +1,45 @@
+@stub-component-stub-width: 250px;
+@stub-component-stub-height: 250px;
+@stub-component-stub-background-color: #CFD8DC;
+@stub-component-stub-font-size: 17px;
+@stub-component-stub-font-color: #78909C;
+@stub-component-stub-icon-font-size: 60px;
+@stub-component-stub-icon-font-color: #B0BEC5;
+
+.stub-component {
+  //position: absolute;
+  //left: 0px;
+  //top: 0px;
+  //right: 0px;
+  //bottom: 0px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+  .stub {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: @stub-component-stub-width;
+    height: @stub-component-stub-height;
+    padding: 20px;
+    box-sizing: border-box;
+    font-size: @stub-component-stub-font-size;
+    text-align: center;
+    color: @stub-component-stub-font-color;
+    background: @stub-component-stub-background-color;
+    border-radius: 50%;
+
+    .fa {
+      display: block;
+      margin-bottom: 15px;
+      font-size: @stub-component-stub-icon-font-size;
+      color: @stub-component-stub-icon-font-color;
+    }
+  }
+}

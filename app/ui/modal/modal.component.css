@@ -19,6 +19,21 @@
   border-radius: 2px;
   box-shadow: 0 1px 30px rgba(0, 0, 0, 0.15);
 }
+@media screen and (min-width: 320px) and (max-width: 800px) {
+  .modal-component.full-screen-on-mobile {
+    width: 100% !important;
+    height: 100%;
+    border-radius: 0px;
+  }
+  .modal-component.full-screen-on-mobile .modal-header {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+  }
+  .modal-component.full-screen-on-mobile .modal-footer {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+}
 .modal-component .modal-header {
   display: flex;
   flex-direction: column;

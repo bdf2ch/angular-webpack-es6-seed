@@ -1,4 +1,5 @@
 .tabs-component {
+  width: 100%;
   height: 100%;
 }
 .tabs-component .tabs-container {
@@ -6,38 +7,30 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-end;
-  height: 50px;
-  padding-left: 5px;
+  height: 40px;
   box-sizing: border-box;
 }
 .tabs-component .tabs-container .tab {
   float: left;
-  height: 35px;
-  margin-right: 5px;
-  padding-top: 5px;
+  height: 40px;
   padding-left: 10px;
   padding-right: 10px;
   box-sizing: border-box;
-  font-size: 12px;
-  line-height: 35px;
-  text-transform: uppercase;
+  font-family: 'Roboto Bold', 'Roboto Regular';
+  font-size: 15px;
+  line-height: 40px;
   text-align: center;
-  color: #1E88E5;
-  border-left: 1px solid lightgray;
-  border-top: 1px solid lightgray;
-  border-right: 1px solid lightgray;
-  border-top-left-radius: 2px;
-  border-top-right-radius: 2px;
+  color: #039BE5;
+  background: #ECEFF1;
   cursor: pointer;
 }
 .tabs-component .tabs-container .tab.active {
-  height: 40px;
   margin-bottom: -1px;
-  line-height: 30px;
-  color: #0D47A1;
+  color: #039BE5;
+  background: white;
   border-bottom: 1px solid white;
   cursor: default;
 }
 .tabs-component .tabs-content {
-  border-top: 1px solid lightgray;
+  overflow: auto;
 }

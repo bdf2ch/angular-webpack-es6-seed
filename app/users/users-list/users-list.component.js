@@ -1,28 +1,54 @@
-import angular from 'angular';
 import { UsersModule } from '../users.module';
 import './users-list.template.html';
 import './users-list.component.css';
+import { User } from '../../models/user';
 import { DivisionsTreeComponent } from '../../divisions/divisions-tree/divisions-tree.component';
 import { DivisionsTreeItemComponent } from '../../divisions/divisions-tree/divisions-tree-item.component';
 import { byDivisionIdFilter } from './by-division-id.filter';
+import { ActionButtonComponent } from '../../ui/action-button/action-button.component';
 
 
 export const UsersListComponent = angular
     .module(UsersModule.name)
     .component('usersList', {
-        bindings: {
-            users: '<'
-        },
         templateUrl: 'users/users-list/users-list.template.html',
-        controller: ['$log', '$scope', 'UsersService', 'DivisionsService', 'ModalsService', 'TabsService', 'DivisionsTreesService', 'byDivisionIdFilter', function ($log, $scope, UsersService, DivisionsService, ModalsService, TabsService, DivisionsTreesService, byDivisionIdFilter) {
-            let search = this.search = '';
-            let selectedUser = this.selectedUser = null;
-            let selectedDivisionId = this.selectedDivisionId = 0;
-            let filtered = this.filtered = false;
-            let modals = this.modals = ModalsService;
+        controller: ['$log', '$scope', 'UsersService', 'DivisionsService', 'ModalsService', 'TabsService', 'DivisionsTreesService', function ($log, $scope, UsersService, DivisionsService, ModalsService, TabsService, DivisionsTreesService) {
+            this.search = '';
+            this.newUser = new User();
+            this.selectedUser = null;
+            this.selectedDivisionId = 0;
+            this.temp = {
+                usersListDivisionId: 0,
+                selectedUserDivisionId: 0,
+                newUserDivisionId: 0
+            };
+            this.users = UsersService;
+            this.modals = ModalsService;
             let tabs = this.tabs = TabsService;
             let divisions = this.divisions = DivisionsService;
-            let trees = this.trees = DivisionsTreesService;
+            this.trees = DivisionsTreesService;
+
+
+            /**
+             * Инициализация компонента
+             */
+            this.$onInit = function () {
+                this.newUser.backup.setup([
+                    'divisionId',
+                    'surname',
+                    'name',
+                    'fname',
+                    'position',
+                    'email',
+                    'account',
+                    'allowEditViolations',
+                    'allowConfirmViolations',
+                    'allowDeleteViolations',
+                    'allowAddFiles',
+                    'allowDeleteFiles',
+                    'isAdministrator'
+                ]);
+            };
 
 
             /**
@@ -37,20 +63,61 @@ export const UsersListComponent = angular
             };
 
 
-            this.closeEditUserModal = function () {
-                if (this.form.$dirty) {
-                    this.selectedUser.backup.restore();
-                    this.form.$setPristine();
-                    this.form.$setUntouched();
-                }
-                this.selectedUser = null;
-                ModalsService.getById('edit-user-modal').close(false);
+            /**
+             * Выбор структурного подразделения у выбранного / нового пользователя
+             * @param item {Object} - элемент иерархического списка дерева структурных подразделений
+             */
+            this.selectUserDivisionsTreeItem = function (item) {
+                if (this.selectedUser !== null)
+                    this.temp.selectedUserDivisionId = item !== null ? item.id : 0;
+                else
+                    this.temp.newUserDivisionId = item !== null ? item.id : 0;
             };
 
 
-            this.selectEditUserDivision = function (item) {
-                $log.log(item);
-                this.selectedUser.divisionId = item.id;
+            /**
+             * Выбор структурного подразделения выбранного / нового пользователя
+             */
+            this.selectUserDivision = function () {
+                if (this.selectedUser !== null) {
+                    this.selectedUser.divisionId = this.temp.selectedUserDivisionId;
+                    this.editUserForm.$setDirty();
+                    this.temp.selectedUserDivisionId = 0;
+                } else {
+                    this.newUser.divisionId = this.temp.newUserDivisionId;
+                    this.newUserForm.$setDirty();
+                    this.temp.newUserDivisionId = 0;
+                }
+                ModalsService.getById('user-divisions-modal').close();
+                DivisionsTreesService.getById('user-divisions-tree').deselect();
+                DivisionsTreesService.getById('user-divisions-tree').collapseAll();
+            };
+
+
+            /**
+             * Закрывает модальное окно выбора структурного подразделения выбранного / нового пользователя
+             */
+            this.closeUserDivisionModal = function () {
+                ModalsService.getById('user-divisions-modal').close();
+                DivisionsTreesService.getById('user-divisions-tree').deselect();
+                DivisionsTreesService.getById('user-divisions-tree').collapseAll();
+                this.temp.selectedUserDivisionId = 0;
+                this.temp.newUserDivisionId = 0;
+            };
+
+
+            /**
+             * Закрывает модальное окно редактирования выбранного пользователя
+             */
+            this.closeEditUserModal = function () {
+                if (this.editUserForm.$dirty) {
+                    this.selectedUser.backup.restore();
+                    this.editUserForm.$setPristine();
+                    this.editUserForm.$setUntouched();
+                }
+                ModalsService.getById('edit-user-modal').close(false);
+                TabsService.getById('selected-user-tabs').selectTabById('selected-user-info');
+                this.selectedUser = null;
             };
 
 
@@ -66,7 +133,7 @@ export const UsersListComponent = angular
              * Открывает модальное окно выбора структурного подразделения
              * для фильтрации списка пользователей
              */
-            this.openDivisionsModal = function () {
+            this.openUsersListDivisionsModal = function () {
                 ModalsService.getById('users-list-divisions-modal').open();
             };
 
@@ -75,7 +142,7 @@ export const UsersListComponent = angular
              * Закрывает модальное окно выбора структурного подразделения
              * для фильтрации списка пользователей
              */
-            this.closeDivisionsModal = function () {
+            this.closeUsersListDivisionsModal = function () {
                 this.trees.getById('users-list-divisions-tree').deselect();
             };
 
@@ -85,7 +152,7 @@ export const UsersListComponent = angular
              * @param item {Object} - элемент дерева структурных подразделений
              */
             this.selectUserListDivision = function (item) {
-                this.selectedDivisionId = item !== undefined ? item.id : 0;
+                this.temp.usersListDivisionId = item !== undefined ? item.id : 0;
             };
 
 
@@ -94,10 +161,8 @@ export const UsersListComponent = angular
              * закрывает модальное окно выбора стрктурного подразделения
              */
             this.filterUserList = function () {
-                this.users = byDivisionIdFilter(UsersService.getAllUsers(), this.selectedDivisionId);
-                this.filtered = true;
                 ModalsService.getById('users-list-divisions-modal').close();
-                DivisionsTreesService.getById('users-list-divisions-tree').deselect();
+                this.selectedDivisionId = this.temp.usersListDivisionId;
             };
 
 
@@ -105,9 +170,8 @@ export const UsersListComponent = angular
              * Сброс фильтра списка пользователей по структурному подразделению
              */
             this.cancelUserListDivisionFilter = function () {
+                this.temp.usersListDivisionId = 0;
                 this.selectedDivisionId = 0;
-                this.filtered = false;
-                this.users = byDivisionIdFilter(UsersService.getAllUsers(), 0);
             };
 
 
@@ -115,7 +179,84 @@ export const UsersListComponent = angular
              * Открывает модальное окно выбора структурного подразделения пользователя
              */
             this.openEditUserDivisionsModal = function () {
-                ModalsService.getById('edit-user-divisions-modal').open();
+                ModalsService.getById('user-divisions-modal').open();
+            };
+
+
+            /**
+             * Триггер изменения прав доступа выбранного пользователя
+             */
+            this.onChangeUserPermissions = function () {
+                this.editUserForm.$setDirty();
+            };
+
+
+            /**
+             * Сохраняет изменения у выбранного пользователя
+             */
+            this.saveChangedUser = function () {
+                UsersService.saveUser(this.selectedUser).then(() => {
+                    this.selectedUser.backup.setup(
+                        [
+                            'divisionId',
+                            'surname',
+                            'name',
+                            'fname',
+                            'position',
+                            'email',
+                            'account',
+                            'allowEditViolations',
+                            'allowConfirmViolations',
+                            'allowAddFiles',
+                            'allowDeleteFiles',
+                            'isAdministrator'
+                        ]
+                    );
+                    this.selectedUser.fio = this.selectedUser.surname + ' ' + this.selectedUser.name + ' ' + this.selectedUser.fname;
+                    this.editUserForm.$setPristine();
+                    this.editUserForm.$setUntouched();
+                    ModalsService.getById('edit-user-modal').close(false);
+                    TabsService.getById('selected-user-tabs').selectTabById('selected-user-info');
+                });
+            };
+
+
+            /**
+             * Открывает модальное окно добавления нового пользователя
+             */
+            this.openNewUserModal = function () {
+                ModalsService.getById('new-user-modal').open();
+            };
+
+
+            /**
+             * Триггер изменения прав доступа нового пользователя
+             */
+            this.onChangeNewUserPermissions = function () {
+                this.newUserForm.$setDirty();
+            };
+
+
+
+            this.addUser = function () {
+                UsersService.addUser(this.newUser).then(() => {
+                    ModalsService.getById('new-user-modal').close();
+                    this.newUser.backup.restore();
+                    this.newUserForm.$setPristine();
+                    this.newUserForm.$setUntouched();
+                });
+            };
+
+
+            /**
+             * Закрывает модальное окно добавления нового пользователя
+             */
+            this.closeNewUserModal = function () {
+                this.newUser.backup.restore();
+                this.newUserForm.$setPristine();
+                this.newUserForm.$setUntouched();
+                ModalsService.getById('new-user-modal').close(false);
+                TabsService.getById('new-user-tabs').selectTabById('new-user-info');
             };
 
         }]

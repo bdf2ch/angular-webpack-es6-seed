@@ -1,5 +1,5 @@
 <div class="modal-background" ng-show="$ctrl.modalOpened === true" ng-style="{ 'z-index': 5000 + $ctrl.modalDepth }" ng-cloak>
-    <div class="modal-component" ng-style="{ 'width': $ctrl.modalWidth }">
+    <div class="modal-component" ng-style="{ 'width': $ctrl.modalWidth }" ng-class="{'full-screen-on-mobile': $ctrl.modalFullScreenOnMobile === true}">
         <div class="modal-header">
             <div class="header-controls">
                 <span class="title">{{ $ctrl.label }}</span>

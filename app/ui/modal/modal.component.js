@@ -19,6 +19,7 @@ export const ModalComponent = angular
             caption: '@',
             description: '@',
             icon: '@',
+            fullScreenOnMobile: '=',
             onOpen: '&',
             onClose: '&'
         },
@@ -30,6 +31,7 @@ export const ModalComponent = angular
             var modalCaption = this.modalCaption = '';
             var modalDescription = this.modalDescription = '';
             var modalIcon = this.modalIcon = '';
+            let modalFullScreenOnMobile = this.modalFullScreenOnMobile = false;
 
 
             this.$onInit = function () {
@@ -47,6 +49,9 @@ export const ModalComponent = angular
                 }
                 if (this.icon !== undefined && this.icon !== '') {
                     this.modalIcon = this.icon;
+                }
+                if (this.fullScreenOnMobile !== undefined && typeof this.fullScreenOnMobile === 'boolean') {
+                    this.modalFullScreenOnMobile = this.fullScreenOnMobile;
                 }
                 ModalsService.register(this);
             };

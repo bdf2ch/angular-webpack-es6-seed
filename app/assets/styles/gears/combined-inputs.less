@@ -1,4 +1,5 @@
 @import (reference) 'inputs';
+@import (reference) 'margins';
 @import (reference) 'paddings';
 
 
@@ -21,6 +22,17 @@
 
     &:last-child {
       justify-content: flex-end;
+    }
+  }
+
+
+  .fa {
+    .margin-right-10;
+    align-self: center;
+    font-size: 18px;
+
+    &.big {
+      font-size: 22px;
     }
   }
 }

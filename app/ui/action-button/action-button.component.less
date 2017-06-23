@@ -1,0 +1,31 @@
+@action-button-bottom: 20px;
+@action-button-right: 40px;
+@action-button-width: 55px;
+@action-button-height: 55px;
+@action-button-background-color: #F44336;
+@action-button-background-color-hover: #D32F2F;
+@action-button-icon-font-size: 20px;
+@action-button-icon-color: white;
+
+.action-button-component {
+  position: fixed;
+  right: @action-button-right;
+  bottom: @action-button-bottom;
+  width: @action-button-width;
+  height: @action-button-height;
+  text-align: center;
+  background: @action-button-background-color;
+  border-radius: 50%;
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+
+  &:hover {
+    background: @action-button-background-color-hover;
+  }
+
+  .fa {
+    font-size: @action-button-icon-font-size;
+    line-height: @action-button-height;
+    color: @action-button-icon-color;
+  }
+}

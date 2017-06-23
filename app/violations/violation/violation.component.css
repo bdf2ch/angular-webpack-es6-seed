@@ -1,0 +1,43 @@
+#violation-component {
+  /* Target landscape smartphones, portrait tablets, narrow desktops */
+  /* Target landscape tablets, desktops */
+  /* Target big displays */
+}
+@media screen and (min-width: 320px) and (max-width: 800px) {
+  #violation-component #details {
+    overflow: hidden;
+    float: none;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    width: 100%;
+  }
+  #violation-component #attachments {
+    display: none;
+  }
+}
+@media screen and (min-width: 800px) and (max-width: 1400px) {
+  #violation-component {
+    padding: 10px;
+  }
+}
+@media screen and (min-width: 1400px) {
+  #violation-component {
+    padding: 20px;
+  }
+}
+#violation-component #details {
+  height: 100%;
+  box-sizing: border-box;
+  margin-right: 400px;
+  background: white;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+}
+#violation-component #attachments {
+  float: right;
+  height: 100%;
+  box-sizing: border-box;
+  width: 400px;
+}

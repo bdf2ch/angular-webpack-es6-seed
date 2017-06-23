@@ -1,4 +1,3 @@
-import angular from 'angular';
 import { ViolationsModule } from '../violations.module';
 import './violations-list.template.html';
 import './violations-list.component.css';

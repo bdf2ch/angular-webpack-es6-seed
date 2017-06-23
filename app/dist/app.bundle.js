@@ -2,7 +2,7 @@ webpackJsonp([0],[
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(15);
+__webpack_require__(26);
 module.exports = angular;
 
 
@@ -38,6 +38,46 @@ var UiModule = exports.UiModule = _angular2.default.module('ui', []).run(['$log'
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.DivisionsModule = undefined;
+
+var _angular = __webpack_require__(0);
+
+var _angular2 = _interopRequireDefault(_angular);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var DivisionsModule = exports.DivisionsModule = _angular2.default.module('DivisionsModule', []);
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.UsersModule = undefined;
+
+var _angular = __webpack_require__(0);
+
+var _angular2 = _interopRequireDefault(_angular);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var UsersModule = exports.UsersModule = _angular2.default.module('users', []);
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 exports.ViolationsModule = undefined;
 
 var _angular = __webpack_require__(0);
@@ -51,7 +91,7 @@ var ViolationsModule = exports.ViolationsModule = _angular2.default.module('viol
 }]);
 
 /***/ }),
-/* 3 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -83,7 +123,7 @@ var ModalsService = exports.ModalsService = _angular2.default.module(_ui.UiModul
         },
 
         getById: function getById(id) {
-            if (id !== undefined) {
+            if (id !== undefined && id !== '') {
                 var found = function found(item, index, modals) {
                     return item.id === id;
                 };
@@ -96,7 +136,122 @@ var ModalsService = exports.ModalsService = _angular2.default.module(_ui.UiModul
 }]);
 
 /***/ }),
-/* 4 */
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Model = exports.Model = function Model() {
+    var _this = this;
+
+    _classCallCheck(this, Model);
+
+    this.backup = {};
+    this.backup.data = {};
+
+    this.backup.setup = function (fields) {
+        if (fields !== undefined) {
+            fields.forEach(function (item, index, array) {
+                if (_this.hasOwnProperty(item)) {
+                    _this.backup.data[item] = _this[item];
+                }
+            });
+        }
+    };
+
+    this.backup.restore = function (fields) {
+        if (fields !== undefined && Array.isArray(fields)) {
+            fields.forEach(function (item, index, array) {
+                if (_this.backup.data.hasOwnProperty(item)) {
+                    _this[item] = _this.backup.data[item];
+                }
+            });
+        } else {
+            for (var field in _this.backup.data) {
+                _this[field] = _this.backup.data[field];
+            }
+        }
+    };
+};
+
+;
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.User = undefined;
+
+var _model = __webpack_require__(6);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var User = exports.User = function (_Model) {
+    _inherits(User, _Model);
+
+    function User(parameters) {
+        _classCallCheck(this, User);
+
+        var _this = _possibleConstructorReturn(this, (User.__proto__ || Object.getPrototypeOf(User)).call(this));
+
+        if (parameters) {
+            _this.id = parameters['ID'] !== undefined ? parameters['ID'] : 0;
+            _this.divisionId = parameters['DIVISION_ID'] !== undefined ? parameters['DIVISION_ID'] : 0;
+            _this.surname = parameters['SURNAME'] !== undefined ? parameters['SURNAME'] : '';
+            _this.name = parameters['NAME'] !== undefined ? parameters['NAME'] : '';
+            _this.fname = parameters['FNAME'] !== undefined ? parameters['FNAME'] : '';
+            _this.position = parameters['POSITION'] !== undefined ? parameters['POSITION'] : '';
+            _this.email = parameters['EMAIL'] !== undefined ? parameters['EMAIL'] : '';
+            _this.account = parameters['LOGIN'] !== undefined ? parameters['LOGIN'] : '';
+            _this.allowEditViolations = parameters['ALLOW_EDIT'] !== undefined && parseInt(parameters['ALLOW_EDIT']) === 1 ? true : false;
+            _this.allowConfirmViolations = parameters['ALLOW_CONFIRM'] !== undefined && parseInt(parameters['ALLOW_CONFIRM']) === 1 ? true : false;
+            _this.allowAddFiles = parameters['ALLOW_ADD_FILES'] !== undefined && parseInt(parameters['ALLOW_ADD_FILES']) === 1 ? true : false;
+            _this.allowDeleteFiles = parameters['ALLOW_DELETE_FILES'] !== undefined && parseInt(parameters['ALLOW_DELETE_FILES']) === 1 ? true : false;
+            _this.isAdministrator = parameters['IS_ADMINISTRATOR'] !== undefined && parseInt(parameters['IS_ADMINISTRATOR']) === 1 ? true : false;
+            _this.fio = _this.surname + ' ' + _this.name + ' ' + _this.fname;
+        } else {
+            _this.id = 0;
+            _this.divisionId = 0;
+            _this.surname = '';
+            _this.name = '';
+            _this.fname = '';
+            _this.position = '';
+            _this.email = '';
+            _this.account = '';
+            _this.allowEditViolations = false;
+            _this.allowConfirmViolations = false;
+            _this.allowAddFiles = false;
+            _this.allowDeleteFiles = false;
+            _this.isAdministrator = false;
+            _this.fio = '';
+        }
+        return _this;
+    }
+
+    return User;
+}(_model.Model);
+
+;
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports) {
 
 /**
@@ -3528,15 +3683,160 @@ angular.mock.$RootScopeDecorator = ['$delegate', function($delegate) {
 
 
 /***/ }),
-/* 5 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(14);
+__webpack_require__(25);
 module.exports = 'ngRoute';
 
 
 /***/ }),
-/* 6 */
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.DivisionsService = undefined;
+
+var _angular = __webpack_require__(0);
+
+var _angular2 = _interopRequireDefault(_angular);
+
+var _divisions = __webpack_require__(2);
+
+var _division = __webpack_require__(31);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var DivisionsService = exports.DivisionsService = _angular2.default.module(_divisions.DivisionsModule.name).factory('DivisionsService', ['$log', '$http', 'API', function ($log, $http, API) {
+    var divisions = [];
+
+    var api = {
+
+        /**
+         * Получает все структурные подразделения с сервера
+         * @returns {HttpPromise}
+         */
+        fetchAllDivisions: function fetchAllDivisions() {
+            var parameters = { action: 'getAllDivisions' };
+            return $http.post(API, parameters);
+        },
+
+        /**
+         * Выполняет разбор полученных с сервера данных и заполняет массив структурных подразделений
+         * @param data {Array}
+         * @returns {Array}
+         */
+        parseDivisions: function parseDivisions(data) {
+            if (data !== undefined) {
+                data.forEach(function (item) {
+                    var division = new _division.Division(item);
+                    division.backup.setup(['parentId', 'departmentId', 'titleShort', 'titleFull', 'storage', 'order', 'isDepartment']);
+                    divisions.push(division);
+                });
+                //$log.log(divisions);
+                return divisions;
+            }
+        },
+
+        /**
+         * Возвращает массив со всеми структурными подразделениями
+         * @returns {Array}
+         */
+        getAllDivisions: function getAllDivisions() {
+            return divisions;
+        },
+
+        /**
+         * Возвращает структурное подразделение по идентификатору
+         * @param id
+         * @returns {*}
+         */
+        getDivisionById: function getDivisionById(id) {
+            if (id !== undefined && id !== '') {
+                var found = function found(item, index, array) {
+                    return item.id === id;
+                };
+                return divisions.find(found);
+            }
+        },
+
+        getDepartmentByDivisionId: function getDepartmentByDivisionId(id) {
+            if (id !== undefined) {
+                var divisionById = function divisionById(item, index, array) {
+                    return item.id === id;
+                };
+                var division = divisions.find(divisionById);
+                if (division !== undefined) {
+                    var departmentByDivisionId = function departmentByDivisionId(item, index, array) {
+                        return item.id === division.departmentId;
+                    };
+                    var department = divisions.find(departmentByDivisionId);
+                    return department;
+                }
+            }
+        }
+
+    };
+
+    return api;
+}]);
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.CheckBoxComponent = undefined;
+
+var _ui = __webpack_require__(1);
+
+__webpack_require__(48);
+
+__webpack_require__(38);
+
+var CheckBoxComponent = exports.CheckBoxComponent = angular.module(_ui.UiModule.name).component('checkbox', {
+    templateUrl: 'ui/checkbox/checkbox.component.html',
+    bindings: {
+        onChange: '&',
+        ngModel: '<'
+    },
+    require: {
+        ngModelCtrl: 'ngModel'
+    },
+    controller: ['$log', function ($log) {
+        this.checked = false;
+
+        /**
+         * Отслеживание изменений модели
+         * @param changes {Object} - объект с информацией об изменениях
+         */
+        this.$onChanges = function (changes) {
+            this.checked = changes.ngModel.currentValue;
+        };
+
+        /**
+         * Триггер переключения состояния чекбокса
+         */
+        this.change = function () {
+            this.checked = !this.checked;
+            this.ngModelCtrl.$setViewValue(this.checked);
+            if (this.onChange !== undefined) this.onChange({ checked: this.checked });
+        };
+    }]
+});
+
+/***/ }),
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3553,11 +3853,15 @@ var _angular2 = _interopRequireDefault(_angular);
 
 var _ui = __webpack_require__(1);
 
-var _modals = __webpack_require__(3);
+var _modalContent = __webpack_require__(33);
 
-__webpack_require__(20);
+var _modalFooter = __webpack_require__(34);
 
-__webpack_require__(17);
+var _modals = __webpack_require__(5);
+
+__webpack_require__(49);
+
+__webpack_require__(39);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3566,33 +3870,28 @@ var ModalComponent = exports.ModalComponent = _angular2.default.module(_ui.UiMod
     bindings: {
         id: '@',
         width: '@',
-        height: '@',
         depth: '@',
-        title: '@',
+        label: '@',
         caption: '@',
         description: '@',
         icon: '@',
+        fullScreenOnMobile: '=',
         onOpen: '&',
         onClose: '&'
     },
     transclude: true,
-    controller: ['$log', 'ModalsService', function ($log, ModalsService) {
-        var modalOpened = this.modalOpened = true;
+    controller: ['$log', '$element', '$timeout', 'ModalsService', function ($log, $element, $timeout, ModalsService) {
+        var modalOpened = this.modalOpened = false;
         var modalWidth = this.modalWidth = '300px';
-        var modalHeight = this.modalHeight = '300px';
         var modalDepth = this.modalDepth = 1;
         var modalCaption = this.modalCaption = '';
         var modalDescription = this.modalDescription = '';
         var modalIcon = this.modalIcon = '';
-
-        this.$postLink = function () {};
+        var modalFullScreenOnMobile = this.modalFullScreenOnMobile = false;
 
         this.$onInit = function () {
             if (this.width !== undefined && this.width !== '' && !isNaN(this.width)) {
                 this.modalWidth = parseInt(this.width) + 'px';
-            }
-            if (this.height !== undefined && this.height !== '' && !isNaN(this.height)) {
-                this.modalHeight = parseInt(this.height) + 'px';
             }
             if (this.depth !== undefined && this.depth !== '' && !isNaN(this.depth)) {
                 this.modalDepth = parseInt(this.depth);
@@ -3606,23 +3905,51 @@ var ModalComponent = exports.ModalComponent = _angular2.default.module(_ui.UiMod
             if (this.icon !== undefined && this.icon !== '') {
                 this.modalIcon = this.icon;
             }
+            if (this.fullScreenOnMobile !== undefined && typeof this.fullScreenOnMobile === 'boolean') {
+                this.modalFullScreenOnMobile = this.fullScreenOnMobile;
+            }
             ModalsService.register(this);
         };
 
-        this.open = function () {
-            this.modalOpened = true;
-            this.onOpen();
+        this.$onChanges = function (changes) {
+            $log.log(changes);
         };
 
-        this.close = function () {
-            this.modalOpened = false;
-            this.onClose();
+        this.open = function () {
+            var _this = this;
+
+            this.modalOpened = true;
+            this.onOpen();
+            $timeout(function () {
+                if (_this.modalHeight === 'auto') {
+                    var height = _angular2.default.element($element[0].children[0].children[0].children[1])[0].clientHeight;
+                    _this.modalHeight = height + 'px';
+                }
+            }, 100);
+            return this;
+        };
+
+        this.close = function (withCallback) {
+            if (withCallback !== undefined && typeof withCallback === 'boolean' && withCallback === true) {
+                this.modalOpened = false;
+                this.onClose();
+            } else if (withCallback === undefined || withCallback !== undefined && typeof withCallback === 'boolean' && withCallback === false) {
+                this.modalOpened = false;
+            }
+            return this;
+        };
+
+        this.setCaption = function (caption) {
+            if (caption !== undefined && caption !== '') {
+                this.modalCaption = caption.toString();
+            }
+            return this;
         };
     }]
 });
 
 /***/ }),
-/* 7 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3639,37 +3966,51 @@ var _angular2 = _interopRequireDefault(_angular);
 
 var _ui = __webpack_require__(1);
 
-__webpack_require__(21);
+__webpack_require__(50);
 
-__webpack_require__(18);
+__webpack_require__(40);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var TabComponent = exports.TabComponent = _angular2.default.module(_ui.UiModule.name).component('tab', {
     transclude: true,
-    template: '<div></div>',
+    template: '<div class="tab" ng-show="$ctrl.tabActive === true" ng-transclude></div>',
     bindings: {
-        title: '@'
+        id: '@',
+        title: '@',
+        width: '@'
     },
     require: {
         tabsCtrl: '^tabs'
     },
     controller: ['$log', function ($log) {
-        $log.log('tab', this);
+        var tabActive = this.tabActive = false; // Флаг активной вкладки
+        var tabWidth = this.tabWidth = 'auto'; // Ширина вкладки
 
+
+        /**
+         * Инициализация компонента
+         * Производит регистрацию вкладки в контроллере родительского компонента
+         */
         this.$onInit = function () {
-            $log.log('tab', this);
-            this.tabsCtrl.register(this);
-        };
-
-        this.$postLink = function () {
+            if (this.id === undefined || this.id === '') {
+                $log.error('tab directive: "id" attribute must be specified');
+                return;
+            }
+            if (this.title === undefined || this.title === '') {
+                $log.error('tab directive: "title" attribute must be specified');
+                return;
+            }
+            if (this.width !== undefined && this.width !== '') {
+                this.tabWidth = this.width;
+            }
             this.tabsCtrl.register(this);
         };
     }]
 });
 
 /***/ }),
-/* 8 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3686,34 +4027,449 @@ var _angular2 = _interopRequireDefault(_angular);
 
 var _ui = __webpack_require__(1);
 
-__webpack_require__(22);
+__webpack_require__(51);
 
-__webpack_require__(19);
+__webpack_require__(41);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var TabsComponent = exports.TabsComponent = _angular2.default.module(_ui.UiModule.name).component('tabs', {
     transclude: true,
     templateUrl: 'ui/tabs/tabs.template.html',
-    controller: ['$log', function ($log) {
-        var tabs = this.tabs = [];
+    bindings: {
+        id: '@'
+    },
+    controller: ['$log', 'TabsService', function ($log, TabsService) {
+        var tabs = this.tabs = []; // Массив вкладок
 
+
+        /**
+         * Инициализация компонента
+         * Проиизводит регистрацию компоеннта в сервисе
+         */
         this.$onInit = function () {
-            $log.log('tabs', this.tabs);
+            TabsService.register(this);
         };
 
+        /**
+         * Регистрирует дочернюю вкладку компонента
+         * @param tab {Object} - контроллер компонента вкладки
+         */
         this.register = function (tab) {
-            $log.log(tab);
             if (tab !== undefined) {
                 this.tabs.push(tab);
-                $log.log(this.tabs);
+                tab.tabActive = this.tabs.length === 1 ? true : false;
+            }
+        };
+
+        /**
+         * Производит выбор вкладки
+         * @param id {String} - идентификатор вкладки
+         */
+        this.selectTabById = function (id) {
+            if (id !== undefined && id !== '') {
+                tabs.forEach(function (item, index, array) {
+                    item.tabActive = item.id === id ? true : false;
+                });
             }
         };
     }]
 });
 
 /***/ }),
-/* 9 */
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.TabsService = undefined;
+
+var _angular = __webpack_require__(0);
+
+var _angular2 = _interopRequireDefault(_angular);
+
+var _ui = __webpack_require__(1);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var TabsService = exports.TabsService = _angular2.default.module(_ui.UiModule.name).factory('TabsService', ['$log', function ($log) {
+    var tabs = [];
+
+    var api = {
+
+        register: function register(tab) {
+            if (tabs !== undefined) {
+                tabs.push(tab);
+            }
+        },
+
+        getById: function getById(id) {
+            if (id !== undefined && id !== '') {
+                var found = function found(item, index, tabs) {
+                    return item.id === id;
+                };
+                return tabs.find(found);
+            }
+        }
+
+    };
+
+    return api;
+}]);
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.UsersListComponent = undefined;
+
+var _users = __webpack_require__(3);
+
+__webpack_require__(52);
+
+__webpack_require__(42);
+
+var _user = __webpack_require__(7);
+
+var _divisionsTree = __webpack_require__(29);
+
+var _divisionsTreeItem = __webpack_require__(28);
+
+var _byDivisionId = __webpack_require__(35);
+
+var _actionButton = __webpack_require__(32);
+
+var UsersListComponent = exports.UsersListComponent = angular.module(_users.UsersModule.name).component('usersList', {
+    templateUrl: 'users/users-list/users-list.template.html',
+    controller: ['$log', '$scope', 'UsersService', 'DivisionsService', 'ModalsService', 'TabsService', 'DivisionsTreesService', function ($log, $scope, UsersService, DivisionsService, ModalsService, TabsService, DivisionsTreesService) {
+        this.search = '';
+        this.newUser = new _user.User();
+        this.selectedUser = null;
+        this.selectedDivisionId = 0;
+        this.temp = {
+            usersListDivisionId: 0,
+            selectedUserDivisionId: 0,
+            newUserDivisionId: 0
+        };
+        this.users = UsersService;
+        this.modals = ModalsService;
+        var tabs = this.tabs = TabsService;
+        var divisions = this.divisions = DivisionsService;
+        this.trees = DivisionsTreesService;
+
+        /**
+         * Инициализация компонента
+         */
+        this.$onInit = function () {
+            this.newUser.backup.setup(['divisionId', 'surname', 'name', 'fname', 'position', 'email', 'account', 'allowEditViolations', 'allowConfirmViolations', 'allowAddFiles', 'allowDeleteFiles', 'isAdministrator']);
+        };
+
+        /**
+         * Выбор текущего пользователя и показ модального окна с данными пользователя.
+         * @param user {User} - выбранный пользователь
+         */
+        this.selectUser = function (user) {
+            if (user !== undefined) {
+                this.selectedUser = user;
+                ModalsService.getById('edit-user-modal').open().setCaption(this.selectedUser.fio);
+            }
+        };
+
+        /**
+         * Выбор структурного подразделения у выбранного / нового пользователя
+         * @param item {Object} - элемент иерархического списка дерева структурных подразделений
+         */
+        this.selectUserDivisionsTreeItem = function (item) {
+            if (this.selectedUser !== null) this.temp.selectedUserDivisionId = item !== null ? item.id : 0;else this.temp.newUserDivisionId = item !== null ? item.id : 0;
+        };
+
+        /**
+         * Выбор структурного подразделения выбранного / нового пользователя
+         */
+        this.selectUserDivision = function () {
+            if (this.selectedUser !== null) {
+                this.selectedUser.divisionId = this.temp.selectedUserDivisionId;
+                this.editUserForm.$setDirty();
+                this.temp.selectedUserDivisionId = 0;
+            } else {
+                this.newUser.divisionId = this.temp.newUserDivisionId;
+                this.newUserForm.$setDirty();
+                this.temp.newUserDivisionId = 0;
+            }
+            ModalsService.getById('user-divisions-modal').close();
+            DivisionsTreesService.getById('user-divisions-tree').deselect();
+            DivisionsTreesService.getById('user-divisions-tree').collapseAll();
+        };
+
+        /**
+         * Закрывает модальное окно выбора структурного подразделения выбранного / нового пользователя
+         */
+        this.closeUserDivisionModal = function () {
+            ModalsService.getById('user-divisions-modal').close();
+            DivisionsTreesService.getById('user-divisions-tree').deselect();
+            DivisionsTreesService.getById('user-divisions-tree').collapseAll();
+            this.temp.selectedUserDivisionId = 0;
+            this.temp.newUserDivisionId = 0;
+        };
+
+        /**
+         * Закрывает модальное окно редактирования выбранного пользователя
+         */
+        this.closeEditUserModal = function () {
+            if (this.editUserForm.$dirty) {
+                this.selectedUser.backup.restore();
+                this.editUserForm.$setPristine();
+                this.editUserForm.$setUntouched();
+            }
+            ModalsService.getById('edit-user-modal').close(false);
+            TabsService.getById('selected-user-tabs').selectTabById('selected-user-info');
+            this.selectedUser = null;
+        };
+
+        /**
+         * Очищает форму поиска пользователей
+         */
+        this.clearSearch = function () {
+            this.search = '';
+        };
+
+        /**
+         * Открывает модальное окно выбора структурного подразделения
+         * для фильтрации списка пользователей
+         */
+        this.openUsersListDivisionsModal = function () {
+            ModalsService.getById('users-list-divisions-modal').open();
+        };
+
+        /**
+         * Закрывает модальное окно выбора структурного подразделения
+         * для фильтрации списка пользователей
+         */
+        this.closeUsersListDivisionsModal = function () {
+            this.trees.getById('users-list-divisions-tree').deselect();
+        };
+
+        /**
+         * Выбор структурного подразделения для фильтрации списка пользователей
+         * @param item {Object} - элемент дерева структурных подразделений
+         */
+        this.selectUserListDivision = function (item) {
+            this.temp.usersListDivisionId = item !== undefined ? item.id : 0;
+        };
+
+        /**
+         * Выполняет фильтрацию списка пользователей по структурному подразделению,
+         * закрывает модальное окно выбора стрктурного подразделения
+         */
+        this.filterUserList = function () {
+            ModalsService.getById('users-list-divisions-modal').close();
+            this.selectedDivisionId = this.temp.usersListDivisionId;
+        };
+
+        /**
+         * Сброс фильтра списка пользователей по структурному подразделению
+         */
+        this.cancelUserListDivisionFilter = function () {
+            this.temp.usersListDivisionId = 0;
+            this.selectedDivisionId = 0;
+        };
+
+        /**
+         * Открывает модальное окно выбора структурного подразделения пользователя
+         */
+        this.openEditUserDivisionsModal = function () {
+            ModalsService.getById('user-divisions-modal').open();
+        };
+
+        /**
+         * Триггер изменения прав доступа выбранного пользователя
+         */
+        this.onChangeUserPermissions = function () {
+            this.editUserForm.$setDirty();
+        };
+
+        /**
+         * Сохраняет изменения у выбранного пользователя
+         */
+        this.saveChangedUser = function () {
+            var _this = this;
+
+            UsersService.saveUser(this.selectedUser).then(function () {
+                _this.selectedUser.backup.setup(['divisionId', 'surname', 'name', 'fname', 'position', 'email', 'account', 'allowEditViolations', 'allowConfirmViolations', 'allowAddFiles', 'allowDeleteFiles', 'isAdministrator']);
+                _this.selectedUser.fio = _this.selectedUser.surname + ' ' + _this.selectedUser.name + ' ' + _this.selectedUser.fname;
+                _this.editUserForm.$setPristine();
+                _this.editUserForm.$setUntouched();
+                ModalsService.getById('edit-user-modal').close(false);
+                TabsService.getById('selected-user-tabs').selectTabById('selected-user-info');
+            });
+        };
+
+        /**
+         * Открывает модальное окно добавления нового пользователя
+         */
+        this.openNewUserModal = function () {
+            ModalsService.getById('new-user-modal').open();
+        };
+
+        /**
+         * Триггер изменения прав доступа нового пользователя
+         */
+        this.onChangeNewUserPermissions = function () {
+            this.newUserForm.$setDirty();
+        };
+
+        this.addUser = function () {
+            var _this2 = this;
+
+            UsersService.addUser(this.newUser).then(function () {
+                ModalsService.getById('new-user-modal').close();
+                _this2.newUser.backup.restore();
+                _this2.newUserForm.$setPristine();
+                _this2.newUserForm.$setUntouched();
+            });
+        };
+
+        /**
+         * Закрывает модальное окно добавления нового пользователя
+         */
+        this.closeNewUserModal = function () {
+            if (this.newUserForm.$dirty) {
+                this.newUser.backup.restore();
+                this.newUserForm.$setPristine();
+                this.newUserForm.$setUntouched();
+                $log.log(this.newUser);
+            }
+            ModalsService.getById('new-user-modal').close(false);
+            TabsService.getById('new-user-tabs').selectTabById('new-user-info');
+        };
+    }]
+});
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.UsersService = undefined;
+
+var _angular = __webpack_require__(0);
+
+var _angular2 = _interopRequireDefault(_angular);
+
+var _users = __webpack_require__(3);
+
+var _user = __webpack_require__(7);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var UsersService = exports.UsersService = _angular2.default.module(_users.UsersModule.name).factory('UsersService', ['$log', '$http', 'API', function ($log, $http, API) {
+    var users = [];
+
+    var api = {
+
+        /**
+         * Получает всех пользователей с сервера
+         * @returns {HttpPromise}
+         */
+        fetchAllUsers: function fetchAllUsers(success, error) {
+            var parameters = { action: 'getAllUsers' };
+            return $http.post(API, parameters).then(function (data) {
+                data.data.forEach(function (item) {
+                    var user = new _user.User(item);
+                    user.backup.setup(['divisionId', 'surname', 'name', 'fname', 'position', 'email', 'account', 'allowEditViolations', 'allowConfirmViolations', 'allowAddFiles', 'allowEditFiles', 'isAdministrator']);
+                    users.push(user);
+                });
+            });
+        },
+
+        /**
+         * Возвращает массив со всеми пользователями
+         * @returns {Array}
+         */
+        getAllUsers: function getAllUsers() {
+            return users;
+        },
+
+        /**
+         * Отправляет на сервер данные о пользователе
+         * @param user {User} - информация о пользователе
+         * @returns {HttpPromise}
+         */
+        saveUser: function saveUser(user) {
+            var parameters = { action: 'saveUser',
+                data: {
+                    userId: user.id,
+                    divisionId: user.divisionId,
+                    surname: user.surname,
+                    name: user.name,
+                    fname: user.fname,
+                    position: user.position,
+                    email: user.email,
+                    account: user.account,
+                    allowEditViolations: user.allowEditViolations,
+                    allowConfirmViolations: user.allowConfirmViolations,
+                    allowAddFiles: user.allowAddFiles,
+                    allowDeleteFiles: user.allowDeleteFiles,
+                    isAdministrator: user.isAdministrator
+                }
+            };
+            return $http.post(API, parameters);
+        },
+
+        /**
+         * Отправляет на сервер данные о новом пользователе
+         * @param user {User} - информация о новом пользователе
+         */
+        addUser: function addUser(user) {
+            if (user) {
+                var parameters = {
+                    action: 'addUser',
+                    data: {
+                        divisionId: user.divisionId,
+                        surname: user.surname,
+                        name: user.name,
+                        fname: user.fname,
+                        position: user.position,
+                        email: user.email,
+                        account: user.account,
+                        allowEditViolations: user.allowEditViolations,
+                        allowConfirmViolations: user.allowConfirmViolations,
+                        allowAddFiles: user.allowAddFiles,
+                        allowDeleteFiles: user.allowDeleteFiles,
+                        isAdministrator: user.isAdministrator
+                    }
+                };
+                return $http.post(API, parameters).then(function (data) {
+                    var user = new _user.User(data.data[2][0]);
+                    console.log(user);
+                    user.backup.setup(['divisionId', 'surname', 'name', 'fname', 'position', 'email', 'account', 'allowEditViolations', 'allowConfirmViolations', 'allowAddFiles', 'allowEditFiles', 'isAdministrator']);
+                    users.push(user);
+                });
+            }
+        }
+
+    };
+
+    return api;
+}]);
+
+/***/ }),
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3728,7 +4484,7 @@ var _angular = __webpack_require__(0);
 
 var _angular2 = _interopRequireDefault(_angular);
 
-var _violations = __webpack_require__(2);
+var _violations = __webpack_require__(4);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3759,7 +4515,33 @@ var TestController = exports.TestController = _angular2.default.module(_violatio
 }]);
 
 /***/ }),
-/* 10 */
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.ViolationComponent = undefined;
+
+var _violations = __webpack_require__(4);
+
+__webpack_require__(53);
+
+__webpack_require__(43);
+
+var ViolationComponent = exports.ViolationComponent = angular.module(_violations.ViolationsModule.name).component('violation', {
+    templateUrl: 'violations/violation/violation.component.html',
+    bindings: {
+        violation: '<'
+    },
+    controller: [function () {}]
+});
+
+/***/ }),
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3770,15 +4552,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ViolationsListComponent = undefined;
 
-var _angular = __webpack_require__(0);
+var _violations = __webpack_require__(4);
 
-var _angular2 = _interopRequireDefault(_angular);
+__webpack_require__(54);
 
-var _violations = __webpack_require__(2);
+__webpack_require__(44);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var ViolationsListComponent = exports.ViolationsListComponent = _angular2.default.module(_violations.ViolationsModule.name).component('violationsList', {
+var ViolationsListComponent = exports.ViolationsListComponent = angular.module(_violations.ViolationsModule.name).component('violationsList', {
     templateUrl: 'violations/violations-list/violations-list.template.html',
     bindings: {},
     controller: ['$scope', '$log', function ($scope, $log) {
@@ -3787,25 +4567,31 @@ var ViolationsListComponent = exports.ViolationsListComponent = _angular2.defaul
 });
 
 /***/ }),
-/* 11 */
+/* 21 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 12 */
+/* 22 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 13 */
+/* 23 */
 /***/ (function(module, exports) {
 
-module.exports = "<!DOCTYPE html>\r\n<html lang=\"en\" ng-app=\"app\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <title>Title</title>\r\n    <link rel=\"stylesheet\" href=\"dist/styles.css\">\r\n</head>\r\n<body>\r\n<script src=\"dist/app.bundle.js\"></script>\r\n<script src=\"dist/common.bundle.js\"></script>\r\n<violations-list></violations-list>\r\n\r\n\r\n\r\n\r\n<div ng-controller=\"TestController\">\r\n    <modal id=\"second-modal\" depth=\"6\" title=\"новый пользователь\" width=\"350\" height=\"350\" caption=\"Выберите структурное подразделение\" icon=\"fa fa-building\" on-close=\"this.onCloseModal()\">\r\n        <tabs>\r\n            <tab title=\"tab1\"></tab>\r\n        </tabs>\r\n    </modal>\r\n\r\n\r\n\r\n    <button ng-click=\"openModal()\" title=\"open modal\">open modal</button>\r\n    <modal title=\"управление пользователями\"\r\n           id=\"test-modal\"\r\n           width=\"450\"\r\n           height=\"500\"\r\n           depth=\"5\"\r\n           caption=\"Добавление нового пользователя\"\r\n           description=\"Укажите данные нового пользователя\"\r\n           icon=\"fa fa-user\"\r\n           on-open=\"onOpenModal()\"\r\n           ng-cloak>\r\n        <div style=\"padding: 20px;\"><input type=\"text\" name=\"\" id=\"\"></div>\r\n        <div style=\"padding: 20px;\"><input type=\"text\" name=\"\" id=\"\"></div>\r\n        <h1 style=\"padding:  50px;\">test</h1>\r\n        <button ng-click=\"openSecondModal()\">Open second modal</button>\r\n    </modal>\r\n</div>\r\n</body>\r\n</html>"
+// removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 14 */
+/* 24 */
+/***/ (function(module, exports) {
+
+module.exports = "<!DOCTYPE html>\r\n<html lang=\"en\" ng-app=\"app\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <title>Title</title>\r\n    <!--<link rel=\"stylesheet\" href=\"dist/styles.css\">-->\r\n</head>\r\n<body>\r\n    <script src=\"dist/app.bundle.js\"></script>\r\n    <script src=\"dist/common.bundle.js\"></script>\r\n\r\n    <div id=\"app-header\"></div>\r\n    <div id=\"app-wrapper\">\r\n        <div id=\"app-content-wrapper\" ng-view></div>\r\n    </div>\r\n\r\n\r\n\r\n<!--\r\n\r\n<div ng-controller=\"TestController\">\r\n\r\n\r\n    <button ng-click=\"openModal()\" title=\"open modal\">open modal</button>\r\n    <modal title=\"управление пользователями\"\r\n           id=\"test-modal\"\r\n           width=\"450\"\r\n           height=\"500\"\r\n           depth=\"5\"\r\n           caption=\"Добавление нового пользователя\"\r\n           description=\"Укажите данные нового пользователя\"\r\n           icon=\"fa fa-user\"\r\n           on-open=\"onOpenModal()\"\r\n           ng-cloak>\r\n        <tabs>\r\n            <tab id=\"tab1\" title=\"Данные пользователя\" width=\"50%\">\r\n                <div class=\"padding-20\">\r\n                    first tab content\r\n                    <button ng-click=\"openSecondModal()\">Open second modal</button><br><br>\r\n                    <div>\r\n                        <label for=\"test\">Имя пользователя</label>\r\n                        <input type=\"text\" name=\"\" id=\"test\" placeholder=\"Введите имя\">\r\n                    </div>\r\n                    <div class=\"margin-top-10\">\r\n                        <label for=\"fname\">Отчество пользователя</label>\r\n                        <input type=\"text\" name=\"\" id=\"fname\" placeholder=\"Введите отчество\">\r\n                    </div>\r\n                    <div class=\"margin-top-10\">\r\n                        <label for=\"surname\">Фамилия пользователя</label>\r\n                        <input type=\"text\" name=\"\" id=\"surname\" placeholder=\"Введите фамилию\">\r\n                    </div>\r\n                </div>\r\n            </tab>\r\n            <tab id=\"tab3\" title=\"Права пользователя\" width=\"50%\">\r\n                <div class=\"padding-10\">third tab content</div>\r\n            </tab>\r\n        </tabs>\r\n        <modal id=\"second-modal\" depth=\"6\" title=\"новый пользователь\" width=\"350\" height=\"350\" caption=\"Выберите структурное подразделение\" icon=\"fa fa-building\" on-close=\"this.onCloseModal()\"></modal>\r\n    </modal>\r\n</div>\r\n-->\r\n\r\n\r\n</body>\r\n</html>"
+
+/***/ }),
+/* 25 */
 /***/ (function(module, exports) {
 
 /**
@@ -5040,7 +5826,7 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 
 /***/ }),
-/* 15 */
+/* 26 */
 /***/ (function(module, exports) {
 
 /**
@@ -38417,7 +39203,7 @@ $provide.value("$locale", {
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
 
 /***/ }),
-/* 16 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38432,77 +39218,688 @@ var _angular = __webpack_require__(0);
 
 var _angular2 = _interopRequireDefault(_angular);
 
-var _angularRoute = __webpack_require__(5);
+var _angularRoute = __webpack_require__(9);
 
 var _angularRoute2 = _interopRequireDefault(_angularRoute);
 
-var _angularMocks = __webpack_require__(4);
+var _angularMocks = __webpack_require__(8);
 
 var _angularMocks2 = _interopRequireDefault(_angularMocks);
 
-__webpack_require__(13);
+__webpack_require__(24);
 
-__webpack_require__(11);
+__webpack_require__(21);
 
-__webpack_require__(12);
+__webpack_require__(22);
 
-var _violations = __webpack_require__(2);
+__webpack_require__(23);
+
+var _users = __webpack_require__(3);
+
+var _violations = __webpack_require__(4);
 
 var _ui = __webpack_require__(1);
 
-var _violationsList = __webpack_require__(10);
+var _violationsList = __webpack_require__(20);
 
-var _modal = __webpack_require__(6);
+var _modal = __webpack_require__(12);
 
-var _modals = __webpack_require__(3);
+var _modals = __webpack_require__(5);
 
-var _tabs = __webpack_require__(8);
+var _tabs = __webpack_require__(14);
 
-var _tab = __webpack_require__(7);
+var _tab = __webpack_require__(13);
 
-var _test = __webpack_require__(9);
+var _tabs2 = __webpack_require__(15);
+
+var _test = __webpack_require__(18);
+
+var _checkbox = __webpack_require__(11);
+
+var _violation = __webpack_require__(19);
+
+var _usersList = __webpack_require__(16);
+
+var _users2 = __webpack_require__(17);
+
+var _divisions = __webpack_require__(2);
+
+var _divisions2 = __webpack_require__(10);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var AppModule = exports.AppModule = _angular2.default.module('app', [_angularRoute2.default, _violations.ViolationsModule.name, _ui.UiModule.name]).run(['$log', function ($log) {
+//import '../node_modules/angular-material/angular-material.min.css';
+var AppModule = exports.AppModule = _angular2.default.module('app', [_angularRoute2.default, _violations.ViolationsModule.name, _divisions.DivisionsModule.name, _users.UsersModule.name, _ui.UiModule.name]).config(['$routeProvider', function ($routeProvider) {
+    $routeProvider.when('/', {
+        template: '<violations-list></violations-list>'
+    }).when('/violation/:violationId', {
+        template: '<violation violation="$resolve.violation"></violation>',
+        resolve: {
+            violation: 'test'
+        }
+    }).when('/users', {
+        template: '<users-list></users-list>',
+        resolve: {
+            users: function users(UsersService) {
+                UsersService.getAllUsers().length > 0 ? UsersService.getAllUsers() : UsersService.fetchAllUsers();
+            },
+            divisions: function divisions(DivisionsService) {
+                return DivisionsService.fetchAllDivisions().then(function (data) {
+                    return DivisionsService.parseDivisions(data.data);
+                });
+            }
+        }
+    }).otherwise({
+        redirectTo: '/'
+    });
+}]).value('API', 'http://127.0.0.1:3000/api').run(['$log', function ($log) {
     $log.log('app');
 }]);
 
 /***/ }),
-/* 17 */
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.DivisionsTreeItemComponent = undefined;
+
+var _angular = __webpack_require__(0);
+
+var _angular2 = _interopRequireDefault(_angular);
+
+var _divisions = __webpack_require__(2);
+
+__webpack_require__(45);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var DivisionsTreeItemComponent = exports.DivisionsTreeItemComponent = _angular2.default.module(_divisions.DivisionsModule.name).component('divisionsTreeItem', {
+    templateUrl: 'divisions/divisions-tree/divisions-tree-item.template.html',
+    bindings: {
+        children: '<',
+        level: '=',
+        tree: '='
+    },
+    controller: function controller() {
+        var itemLevel = this.itemLevel = 0;
+
+        this.$onInit = function () {
+            this.itemLevel = parseInt(this.level);
+        };
+    }
+});
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.DivisionsTreeComponent = undefined;
+
+var _angular = __webpack_require__(0);
+
+var _angular2 = _interopRequireDefault(_angular);
+
+var _divisions = __webpack_require__(2);
+
+var _divisionsTrees = __webpack_require__(30);
+
+__webpack_require__(46);
+
+__webpack_require__(36);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var DivisionsTreeComponent = exports.DivisionsTreeComponent = _angular2.default.module(_divisions.DivisionsModule.name).component('divisionsTree', {
+    templateUrl: 'divisions/divisions-tree/divisions-tree.template.html',
+    bindings: {
+        id: '@',
+        divisions: '<',
+        expandOnSelect: '@',
+        collapseOnSelect: '@',
+        onSelect: '&'
+    },
+    controller: ['$log', 'DivisionsTreesService', function ($log, DivisionsTreesService) {
+        var stack = this.stack = [];
+        var root = this.root = [];
+        var selectedItem = this.selectedItem = undefined;
+
+        /**
+         * Инициализация компонента
+         * Регистрирует компонент в серисе управления деревьями структурных подразделений
+         */
+        this.$onInit = function () {
+            DivisionsTreesService.register(this);
+        };
+
+        this.$onChanges = function (changes) {
+            if (changes.divisions) {
+                var length = changes.divisions.currentValue.length;
+                for (var i = 0; i < length; i++) {
+                    this.addItem({
+                        id: changes.divisions.currentValue[i].id,
+                        parentId: changes.divisions.currentValue[i].parentId,
+                        title: changes.divisions.currentValue[i].titleShort
+                    });
+                }
+            }
+            if (changes.expandOnSelect) {
+                switch (changes.expandOnSelect.currentValue) {
+                    case 'true':
+                        this.expandOnSelect = true;break;
+                    case 'false':
+                        this.expandOnSelect = false;break;
+                    default:
+                        this.expandOnSelect = false;break;
+                }
+            }
+            if (changes.collapseOnSelect) {
+                switch (changes.collapseOnSelect.currentValue) {
+                    case 'true':
+                        this.collapseOnSelect = true;break;
+                    case 'false':
+                        this.collapseOnSelect = false;break;
+                    default:
+                        this.collapseOnSelect = false;break;
+                }
+            }
+            if (changes.level) {
+                this.level = parseInt(level);
+            }
+        };
+
+        this.addItem = function (parameters) {
+            //$log.log(parameters);
+            if (parameters !== undefined) {
+                if (parameters.id !== undefined && parameters.parentId !== undefined && parameters.title !== undefined) {
+                    var division = {
+                        id: parameters.id,
+                        parentId: parameters.parentId,
+                        title: parameters.title,
+                        opened: false,
+                        selected: false,
+                        children: []
+                    };
+                    if (division.parentId === 0) {
+                        this.root.push(division);
+                    } else {
+                        var length = this.stack.length;
+                        for (var i = 0; i < length; i++) {
+                            if (this.stack[i].id === division.parentId) {
+                                this.stack[i].children.push(division);
+                            }
+                        }
+                    }
+                    this.stack.push(division);
+                    return division;
+                }
+            }
+
+            return null;
+        };
+
+        /**
+         * Разворачивает элемент по идентификатору
+         * @param id {String} - идентификатор элемента
+         */
+        this.expandItem = function (id) {
+            var itemById = function itemById(item, index, array) {
+                return item.id === id;
+            };
+            var item = stack.find(itemById);
+            item.opened = item !== undefined ? true : true;
+        };
+
+        /**
+         * Сворачивает элемент по идентификатору
+         * @param id {String} - идентификатор элемнта
+         */
+        this.collapseItem = function (id) {
+            var itemById = function itemById(item, index, array) {
+                return item.id === id;
+            };
+            var item = stack.find(itemById);
+            item.opened = item !== undefined ? false : false;
+        };
+
+        this.collapseAll = function () {
+            this.stack.forEach(function (item) {
+                item.opened = false;
+            });
+        };
+
+        /**
+         * Выбирает элемент дерева по идентификатору
+         * @param id {String} - идентификатор элемента
+         */
+        this.selectItem = function (id) {
+            if (id !== undefined) {
+                var length = this.stack.length;
+                for (var i = 0; i < length; i++) {
+                    if (this.stack[i].id === id) {
+                        if (this.stack[i].selected === true) {
+                            this.stack[i].selected = false;
+                            if (this.collapseOnSelect === true) {
+                                this.stack[i].opened = false;
+                            }
+                            this.selectedItem = this.stack[i];
+                            this.onSelect({ item: this.stack[i] });
+                        } else {
+                            this.stack[i].selected = true;
+                            if (this.expandOnSelect === true) {
+                                this.stack[i].opened = true;
+                            }
+                            this.onSelect({ item: this.stack[i] });
+                            this.selectedItem = this.stack[i];
+                        }
+                    } else {
+                        this.stack[i].selected = false;
+                    }
+                }
+            }
+        };
+
+        /**
+         * Возвращает выбранный элемент дерева
+         * @returns {string|null|undefined|*|Object}
+         */
+        this.getSelectedItem = function () {
+            return this.selectedItem;
+        };
+
+        /**
+         * Сбрасывает выбранный элемент
+         */
+        this.deselect = function () {
+            stack.forEach(function (item) {
+                item.selected = false;
+            });
+            this.selectedItem = undefined;
+        };
+    }]
+});
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.DivisionsTreesService = undefined;
+
+var _angular = __webpack_require__(0);
+
+var _angular2 = _interopRequireDefault(_angular);
+
+var _divisions = __webpack_require__(2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * DivisionsTreesService
+ * Сервис управления деревьями структурных подразделений
+ * @type {*}
+ */
+var DivisionsTreesService = exports.DivisionsTreesService = _angular2.default.module(_divisions.DivisionsModule.name).factory('DivisionsTreesService', ['$log', function ($log) {
+    var trees = [];
+
+    var api = {
+
+        /**
+         * Регистрирует компонент дерева структурных подразделений
+         * @param tree
+         */
+        register: function register(tree) {
+            if (tree !== undefined) {
+                trees.push(tree);
+            }
+        },
+
+        /**
+         * Поиск дерева структурных подразделений по идентификатору
+         * @param id {String} - идентификатор дерева
+         * @returns {*}
+         */
+        getById: function getById(id) {
+            if (id !== undefined) {
+                var tree = function tree(item, index, array) {
+                    return item.id === id;
+                };
+                return trees.find(tree);
+            }
+        }
+
+    };
+
+    return api;
+}]);
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Division = undefined;
+
+var _model = __webpack_require__(6);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Division = exports.Division = function (_Model) {
+    _inherits(Division, _Model);
+
+    function Division(parameters) {
+        _classCallCheck(this, Division);
+
+        var _this = _possibleConstructorReturn(this, (Division.__proto__ || Object.getPrototypeOf(Division)).call(this));
+
+        if (parameters) {
+            _this.id = parameters['ID'] !== undefined ? parameters['ID'] : 0;
+            _this.parentId = parameters['PARENT_ID'] !== undefined ? parameters['PARENT_ID'] : 0;
+            _this.departmentId = parameters['DEPARTMENT_ID'] !== undefined ? parameters['DEPARTMENT_ID'] : 0;
+            _this.titleShort = parameters['TITLE_SHORT'] !== undefined ? parameters['TITLE_SHORT'] : '';
+            _this.titleFull = parameters['TITLE_FULL'] !== undefined ? parameters['TITLE_FULL'] : '';
+            _this.storage = parameters['FILE_STORAGE_HOST'] !== undefined ? parameters['FILE_STORAGE_HOST'] : '';
+            _this.path = parameters['PATH'] !== undefined ? parameters['PATH'] : '';
+            _this.order = parameters['SORT_ID'] !== undefined ? parameters['SORT_ID'] : 0;
+            _this.isDepartment = parameters['IS_DEPARTMENT'] !== undefined && parameters['IS_DEPARTMENT'] === 1 ? true : false;
+        } else {
+            _this.id = 0;
+            _this.parentId = 0;
+            _this.departmentId = 0;
+            _this.titleShort = '';
+            _this.titleFull = '';
+            _this.storage = '';
+            _this.path = '';
+            _this.order = 0;
+            _this.isDepartment = false;
+        }
+        return _this;
+    }
+
+    return Division;
+}(_model.Model);
+
+;
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.ActionButtonComponent = undefined;
+
+var _ui = __webpack_require__(1);
+
+__webpack_require__(47);
+
+__webpack_require__(37);
+
+var ActionButtonComponent = exports.ActionButtonComponent = angular.module(_ui.UiModule.name).component('actionButton', {
+    templateUrl: 'ui/action-button/action-button.component.html',
+    bindings: {
+        icon: '@',
+        onClick: '&'
+    },
+    controller: [function () {
+        var _this = this;
+
+        this.actionButtonIcon = '';
+
+        this.$onInit = function () {
+            if (_this.icon !== undefined && _this.icon !== '') {
+                _this.actionButtonIcon = _this.icon;
+            }
+        };
+    }]
+});
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.ModalContentComponent = undefined;
+
+var _angular = __webpack_require__(0);
+
+var _angular2 = _interopRequireDefault(_angular);
+
+var _ui = __webpack_require__(1);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ModalContentComponent = exports.ModalContentComponent = _angular2.default.module(_ui.UiModule.name).component('modalContent', {
+    transclude: true,
+    template: '<div class="modal-content">\n                <div class="modal-content-wrapper" ng-transclude ng-style="{\'height\': $ctrl.modalContentHeight}"></div>\n            </div>',
+    require: {
+        modalCtrl: '^modal'
+    },
+    bindings: {
+        height: '@'
+    },
+    controller: ['$log', function ($log) {
+        var modalContentHeight = this.modalContentHeight = 'auto';
+
+        this.$onInit = function () {
+            if (this.height !== undefined && this.height !== '') {
+                this.modalContentHeight = parseInt(this.height) + 'px';
+            }
+        };
+    }]
+});
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.ModalFooterComponent = undefined;
+
+var _angular = __webpack_require__(0);
+
+var _angular2 = _interopRequireDefault(_angular);
+
+var _ui = __webpack_require__(1);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ModalFooterComponent = exports.ModalFooterComponent = _angular2.default.module(_ui.UiModule.name).component('modalFooter', {
+    transclude: true,
+    template: '<div class="modal-footer"><div class="modal-footer-content-wrapper" ng-transclude></div></div>',
+    require: {
+        modalCtrl: '^modal'
+    },
+    controller: ['$log', function ($log) {}]
+});
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.byDivisionIdFilter = undefined;
+
+var _angular = __webpack_require__(0);
+
+var _angular2 = _interopRequireDefault(_angular);
+
+var _users = __webpack_require__(3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * byDivisionId Filter
+ * Фильтр списка пользователей по принадлежности к структурному подразделению
+ */
+var byDivisionIdFilter = exports.byDivisionIdFilter = _angular2.default.module(_users.UsersModule.name).filter('byDivisionId', ['$log', function ($log) {
+    return function (input, divisionId) {
+        if (divisionId !== undefined && divisionId !== 0) {
+            var filteredByDivisionId = function filteredByDivisionId(item, index, array) {
+                return item.divisionId === divisionId;
+            };
+            var result = input.filter(filteredByDivisionId);
+            return result;
+        } else return input;
+    };
+}]);
+
+/***/ }),
+/* 36 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 18 */
+/* 37 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 19 */
+/* 38 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 20 */
+/* 39 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"modal-background\" ng-if=\"$ctrl.modalOpened === true\" ng-style=\"{ 'z-index': 5000 + $ctrl.modalDepth }\" ng-cloak>\r\n    <div class=\"modal-component\" ng-style=\"{ 'width': $ctrl.modalWidth }\">\r\n        <div class=\"modal-header\">\r\n            <div class=\"header-controls\">\r\n                <span class=\"title\">{{ $ctrl.title }}</span>\r\n                <span class=\"control\" title=\"Закрыть\" ng-click=\"$ctrl.close()\">Закрыть</span>\r\n            </div>\r\n            <div class=\"header-content\">\r\n                <i ng-show=\"$ctrl.modalIcon !== ''\" class=\"{{ 'fa ' + $ctrl.modalIcon }}\"></i>\r\n                <div class=\"details\">\r\n                    <div class=\"title\">{{ $ctrl.modalCaption }}</div>\r\n                    <div class=\"description\" ng-show=\"$ctrl.modalDescription !== ''\">{{ $ctrl.modalDescription }}</div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"modal-content\" ng-style=\"{'height': $ctrl.modalHeight}\" ng-transclude></div>\r\n    </div>\r\n</div>\r\n"
+// removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 21 */
+/* 40 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"tree-item\" ng-repeat=\"item in $ctrl.children track by $index\">\r\n\r\n    <div class=\"item-details\" ng-class=\"{ 'selected': item.selected === true }\" ng-style=\"{ 'padding-left': $ctrl.level * 25 + 'px' }\">\r\n        <span class=\"bullet\">\r\n            <i class=\"fa fa-caret-right\" ng-show=\"item.children.length > 0 && item.opened === false\" ng-click=\"$ctrl.tree.expandItem(item.id)\"></i>\r\n            <i class=\"fa fa-caret-down\" ng-show=\"item.children.length > 0 && item.opened === true\" ng-click=\"$ctrl.tree.collapseItem(item.id)\"></i>\r\n        </span>\r\n        <span class=\"icon\">\r\n            <i class=\"fa fa-building\"></i>\r\n        </span>\r\n        <span class=\"title\" ng-click=\"$ctrl.tree.selectItem(item.id)\">{{ item.title }}</span>\r\n    </div>\r\n\r\n    <div class=\"children-items\" ng-show=\"item.children.length > 0 && item.opened === true\">\r\n        <divisions-tree-item tree=\"$ctrl.tree\" children=\"item.children\" level=\"$ctrl.level + 1\"></divisions-tree-item>\r\n    </div>\r\n\r\n</div>\r\n\r\n"
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"divisions-tree-component\">\r\n    <div class=\"tree-item root\" ng-repeat=\"division in $ctrl.root track by $id(division.id)\">\r\n        <div class=\"item-details\">\r\n            <span class=\"bullet down\">\r\n                <i class=\"fa fa-caret-right\" ng-show=\"division.children.length > 0 && division.opened === false\" ng-click=\"$ctrl.expandItem(division.id)\"></i>\r\n                <i class=\"fa fa-caret-down\" ng-show=\"division.children.length > 0 && division.opened === true\" ng-click=\"$ctrl.collapseItem(division.id)\"></i>\r\n            </span>\r\n            <span class=\"icon\">\r\n                <i class=\"fa fa-building\"></i>\r\n            </span>\r\n            <span class=\"title\" ng-click=\"$ctrl.selectItem(division.id)\">{{ division.title }}</span>\r\n        </div>\r\n        <div class=\"children-items\" ng-show=\"division.children.length > 0 && division.opened === true\">\r\n            <divisions-tree-item tree=\"$ctrl\" children=\"division.children\" level=\"1\"></divisions-tree-item>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n\r\n"
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"action-button-component\" ng-click=\"$ctrl.onClick()\">\r\n    <i class=\"fa {{ $ctrl.actionButtonIcon }}\"></i>\r\n</div>"
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"checkbox-component\" ng-click=\"$ctrl.change()\" ng-class=\"{ 'on': $ctrl.checked == true }\">\r\n    <div class=\"tumbler\"></div>\r\n</div>"
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"modal-background\" ng-show=\"$ctrl.modalOpened === true\" ng-style=\"{ 'z-index': 5000 + $ctrl.modalDepth }\" ng-cloak>\r\n    <div class=\"modal-component\" ng-style=\"{ 'width': $ctrl.modalWidth }\" ng-class=\"{'full-screen-on-mobile': $ctrl.modalFullScreenOnMobile === true}\">\r\n        <div class=\"modal-header\">\r\n            <div class=\"header-controls\">\r\n                <span class=\"title\">{{ $ctrl.label }}</span>\r\n                <span class=\"control\" title=\"Закрыть\" ng-click=\"$ctrl.close(true)\">Закрыть</span>\r\n            </div>\r\n            <div class=\"header-content\">\r\n                <i ng-show=\"$ctrl.modalIcon !== ''\" class=\"{{ 'fa ' + $ctrl.modalIcon }}\"></i>\r\n                <div class=\"details\">\r\n                    <div class=\"title\">{{ $ctrl.modalCaption }}</div>\r\n                    <div class=\"description\" ng-show=\"$ctrl.modalDescription !== ''\">{{ $ctrl.modalDescription }}</div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div ng-transclude></div>\r\n        <!--\r\n        <div class=\"modal-content\" ng-style=\"{'height': $ctrl.modalHeight, 'bottom': $ctrl.modalFooterHeight }\" ng-transclude></div>\r\n        -->\r\n    </div>\r\n</div>\r\n"
+
+/***/ }),
+/* 50 */
 /***/ (function(module, exports) {
 
 module.exports = "<h2>{{ $ctrl.title }}</h2>"
 
 /***/ }),
-/* 22 */
+/* 51 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"tabs-component\">\r\n    <span class=\"tab-component\" ng-repeat=\"tab in $ctrl.tabs track by $index\">{{ tab.title }}</span>\r\n</div>"
+module.exports = "<div class=\"tabs-component\">\r\n    <div class=\"tabs-container\">\r\n        <div class=\"tab\"\r\n             ng-repeat=\"tab in $ctrl.tabs track by $index\"\r\n             ng-class=\"{ 'active': tab.tabActive === true }\"\r\n             ng-style=\"{ 'width': tab.tabWidth }\"\r\n             ng-click=\"$ctrl.selectTabById(tab.id)\"\r\n             title=\"{{ tab.title }}\">\r\n            {{ tab.title }}\r\n        </div>\r\n    </div>\r\n    <div class=\"tabs-content\" ng-transclude></div>\r\n</div>"
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports) {
+
+module.exports = "<div id=\"users-list\">\r\n\r\n    <action-button icon=\"fa-plus\" on-click=\"$ctrl.openNewUserModal()\" title=\"Добавить пользователя\"></action-button>\r\n\r\n    <!-- Инпут поиска пользователей -->\r\n    <div id=\"users-list-search\" class=\"combined-input\">\r\n        <input type=\"text\"\r\n               name=\"search\"\r\n               id=\"users-search\"\r\n               placeholder=\"Введите имя или e-mail пользователя\"\r\n               ng-model=\"$ctrl.search\">\r\n        <button title=\"Очистить поиск\"\r\n                ng-show=\"$ctrl.search !== ''\"\r\n                ng-click=\"$ctrl.clearSearch()\">\r\n            <i class=\"fa fa-times\"></i>\r\n        </button>\r\n        <button title=\"Выбрать структурное подразделение\" ng-click=\"$ctrl.openUsersListDivisionsModal()\">\r\n            <i class=\"fa fa-building\"></i>\r\n        </button>\r\n    </div>\r\n\r\n\r\n    <!-- Фильтры списка пользователей -->\r\n    <div id=\"users-list-filters\" class=\"row\" ng-show=\"$ctrl.selectedDivisionId !== 0\">\r\n        <div class=\"filter\">\r\n            <i class=\"fa fa-building\"></i>\r\n            {{ $ctrl.divisions.getDivisionById($ctrl.selectedDivisionId).titleShort }}\r\n            <span class=\"cancel\" title=\"Отменить фильтр\" ng-click=\"$ctrl.cancelUserListDivisionFilter()\">&times;</span>\r\n        </div>\r\n    </div>\r\n\r\n\r\n    <!-- Шапка списка пользователей -->\r\n    <div id=\"user-list-header\">\r\n        <div class=\"header-image\"></div>\r\n        <div class=\"header-user-name-position\"><i class=\"fa fa-user\"></i>Имя / должность</div>\r\n        <div class=\"header-user-email\"><i class=\"fa fa-at\"></i>E-mail</div>\r\n        <div class=\"header-user-account\"><i class=\"fa fa-desktop\"></i>Active Directory</div>\r\n        <div class=\"header-user-division\"><i class=\"fa fa-building\"></i>Стр. подразделение / филиал</div>\r\n    </div>\r\n\r\n\r\n    <!-- Список пользователей -->\r\n    <div class=\"list-item\" ng-repeat=\"user in $ctrl.users.getAllUsers() | byDivisionId: $ctrl.selectedDivisionId | orderBy:'surname' | filter: { 'fio': $ctrl.search } track by $id(user.id)\" ng-click=\"$ctrl.selectUser(user)\">\r\n        <div class=\"list-image margin-right-20\">\r\n            <i class=\"fa fa-user\"></i>\r\n        </div>\r\n        <div class=\"list-content user-name-position\">\r\n            <span class=\"primary name\">{{ user.fio }}</span>\r\n            <span class=\"secondary position\" ng-show=\"user.position !== ''\">{{ user.position }}</span>\r\n            <span class=\"secondary division\">{{ $ctrl.divisions.getDepartmentByDivisionId(user.divisionId).titleShort }}</span>\r\n        </div>\r\n        <div class=\"list-content user-email\">\r\n            <span class=\"primary\">{{ user.email }}</span>\r\n        </div>\r\n        <div class=\"list-content user-account\">\r\n            <span class=\"primary\">{{ user.account }}</span>\r\n        </div>\r\n        <div class=\"list-content user-division\">\r\n            <span class=\"primary\">{{ $ctrl.divisions.getDivisionById(user.divisionId).titleShort }}</span>\r\n            <span class=\"secondary\" ng-show=\"$ctrl.divisions.getDivisionById(user.divisionId).isDepartment === false\">{{ $ctrl.divisions.getDepartmentByDivisionId(user.divisionId).titleShort }}</span>\r\n        </div>\r\n    </div>\r\n\r\n\r\n    <!-- Модальное окно выбора структурного подразделения для фильтра списка пользователей -->\r\n    <modal id=\"users-list-divisions-modal\"\r\n           label=\"управление пользователями\"\r\n           caption=\"Выберите структурное подразделение\"\r\n           icon=\"fa-building\"\r\n           width=\"400\"\r\n           on-close=\"$ctrl.closeUsersListDivisionsModal()\">\r\n        <modal-content height=\"300\">\r\n            <divisions-tree\r\n                    id=\"users-list-divisions-tree\"\r\n                    divisions=\"$ctrl.divisions.getAllDivisions()\"\r\n                    expand-on-select=\"true\"\r\n                    collapse-on-select=\"true\"\r\n                    on-select=\"$ctrl.selectUserListDivision(item)\">\r\n            </divisions-tree>\r\n        </modal-content>\r\n        <modal-footer>\r\n            <div class=\"row padding-10\">\r\n                <div class=\"width-50 padding-right-5\">\r\n                    <button class=\"width-100 green\"\r\n                            ng-disabled=\"$ctrl.trees.getById('users-list-divisions-tree').getSelectedItem() === undefined\"\r\n                            ng-click=\"$ctrl.filterUserList()\">Выбрать</button>\r\n                </div>\r\n                <div class=\"width-50 padding-left-5\">\r\n                    <button class=\"width-100 red\" ng-click=\"$ctrl.modals.getById('users-list-divisions-modal').close(true)\">Отмена</button>\r\n                </div>\r\n            </div>\r\n        </modal-footer>\r\n    </modal>\r\n\r\n\r\n    <!-- Модальное окно выбора структурного подразделения при редактировании пользователя -->\r\n    <modal id=\"user-divisions-modal\"\r\n           label=\"управление пользователями\"\r\n           caption=\"Выберите структурное подразделение\"\r\n           icon=\"fa-building\"\r\n           width=\"400\"\r\n           height=\"400\"\r\n           depth=\"2\"\r\n           full-screen-on-mobile=\"true\"\r\n           on-close=\"$ctrl.closeUserDivisionModal()\">\r\n        <modal-content height=\"300\">\r\n            <divisions-tree\r\n                    id=\"user-divisions-tree\"\r\n                    divisions=\"$ctrl.divisions.getAllDivisions()\"\r\n                    expand-on-select=\"true\"\r\n                    collapse-on-select=\"true\"\r\n                    on-select=\"$ctrl.selectUserDivisionsTreeItem(item)\">\r\n            </divisions-tree>\r\n        </modal-content>\r\n        <modal-footer>\r\n            <div class=\"row padding-10\">\r\n                <div class=\"width-50 padding-right-5\">\r\n                    <button class=\"width-100 green\"\r\n                            ng-click=\"$ctrl.selectUserDivision()\"\r\n                            ng-disabled=\"$ctrl.trees.getById('user-divisions-tree').selectedItem === undefined\">\r\n                        Выбрать\r\n                    </button>\r\n                </div>\r\n                <div class=\"width-50 padding-left-5\">\r\n                    <button class=\"width-100 red\" ng-click=\"$ctrl.closeUserDivisionModal()\">Отмена</button>\r\n                </div>\r\n            </div>\r\n        </modal-footer>\r\n    </modal>\r\n\r\n\r\n    <!-- Модальнок окно с информацие о выбранном пользователе -->\r\n    <modal id=\"edit-user-modal\"\r\n           label=\"управление пользователями\"\r\n           description=\"Информация о пользователе\"\r\n           icon=\"fa-user\"\r\n           width=\"500\"\r\n           depth=\"1\"\r\n           full-screen-on-mobile=\"true\"\r\n           on-close=\"$ctrl.closeEditUserModal()\">\r\n        <modal-content>\r\n            <tabs id=\"selected-user-tabs\">\r\n                <tab id=\"selected-user-info\" title=\"Личные данные\" width=\"50%\">\r\n                    <div class=\"row padding-20 padding-top-5 padding-bottom-10\">\r\n                        <form name=\"editUserForm\" ng-submit=\"this.$parent.$parent.$ctrl.saveChangedUser()\" novalidate>\r\n                            <div class=\"row margin-bottom-10\" ng-init=\"this.$parent.$parent.$ctrl.editUserForm = editUserForm\">\r\n                                    <label for=\"selected-user-surname\" class=\"width-100\">\r\n                                        Фамилия\r\n                                        <span class=\"form-error margin-left-20\" ng-show=\"editUserForm.surname.$dirty && editUserForm.surname.$invalid\"><i class=\"fa fa-exclamation-circle\"></i>Вы не указали фамилию</span>\r\n                                    </label>\r\n                                    <input type=\"text\"\r\n                                           name=\"surname\"\r\n                                           id=\"selected-user-surname\"\r\n                                           class=\"width-100\"\r\n                                           placeholder=\"Введите фамилию\"\r\n                                           required\r\n                                           ng-model=\"$ctrl.selectedUser.surname\">\r\n                            </div>\r\n                            <div class=\"row margin-bottom-10\">\r\n                                <label for=\"selected-user-name\">\r\n                                    Имя\r\n                                    <span class=\"form-error margin-left-20\" ng-show=\"editUserForm.name.$dirty && editUserForm.name.$invalid\"><i class=\"fa fa-exclamation-circle\"></i>Вы не указали имя</span>\r\n                                </label>\r\n                                <input type=\"text\"\r\n                                       name=\"name\"\r\n                                       id=\"selected-user-name\"\r\n                                       class=\"width-100\"\r\n                                       placeholder=\"Введите имя\"\r\n                                       required\r\n                                       ng-model=\"$ctrl.selectedUser.name\">\r\n                            </div>\r\n                            <div class=\"row margin-bottom-10\">\r\n                                <label for=\"selected-user-fname\">Отчество</label>\r\n                                <input type=\"text\"\r\n                                       name=\"fname\"\r\n                                       id=\"selected-user-fname\"\r\n                                       class=\"width-100\"\r\n                                       placeholder=\"Введите отчество\"\r\n                                       ng-model=\"$ctrl.selectedUser.fname\">\r\n                            </div>\r\n                            <div class=\"row margin-bottom-10\">\r\n                                <label for=\"selected-user-division\">Структурное подразделение</label>\r\n                                <div class=\"combined-input\">\r\n                                    <input type=\"text\"\r\n                                           name=\"email\"\r\n                                           id=\"selected-user-division\"\r\n                                           class=\"width-100\"\r\n                                           placeholder=\"Выберите структурное подразделение\"\r\n                                           disabled\r\n                                           ng-model=\"$ctrl.divisions.getDivisionById($ctrl.selectedUser.divisionId).titleShort\">\r\n                                    <button type=\"button\" title=\"Выбрать структурное подразделение\" ng-click=\"this.$parent.$parent.$ctrl.openEditUserDivisionsModal()\"><i class=\"fa fa-building\"></i></button>\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"row margin-bottom-10\">\r\n                                <label for=\"selected-user-position\">Должность</label>\r\n                                <input type=\"text\" name=\"position\" id=\"selected-user-position\" class=\"width-100\" placeholder=\"Введите должность\" ng-model=\"$ctrl.selectedUser.position\">\r\n                            </div>\r\n                            <div class=\"row margin-bottom-10\">\r\n                                <label for=\"selected-user-email\">E-mail</label>\r\n                                <input type=\"text\" name=\"email\" id=\"selected-user-email\" class=\"width-100\" placeholder=\"Введите e-mail\" ng-model=\"$ctrl.selectedUser.email\">\r\n                            </div>\r\n                            <div class=\"row margin-bottom-10\">\r\n                                <label for=\"selected-user-account\">\r\n                                    Учетная запись Active Directory\r\n                                    <span class=\"form-error margin-left-20\" ng-show=\"editUserForm.account.$dirty && editUserForm.account.$invalid\"><i class=\"fa fa-exclamation-circle\"></i>Вы не указали учетную запись</span>\r\n\r\n                                </label>\r\n                                <input type=\"text\"\r\n                                       name=\"account\"\r\n                                       id=\"selected-user-account\"\r\n                                       class=\"width-100\"\r\n                                       placeholder=\"Введите учетную запись\"\r\n                                       required\r\n                                       ng-model=\"$ctrl.selectedUser.account\">\r\n                            </div>\r\n                        </form>\r\n                    </div>\r\n                </tab>\r\n                <tab id=\"selected-user-permissions\" title=\"Права доступа\" width=\"50%\">\r\n                    <div class=\"row padding-20\">\r\n                        <div class=\"form-row margin-top-10 margin-bottom-20\">\r\n                            <div class=\"width-5 margin-right-10\"><i class=\"fa fa-pencil-square-o\"></i></div>\r\n                            <div class=\"width-85 form-text padding-right-10\">Пользователь может редактировать информацию о технологических нарушениях</div>\r\n                            <div class=\"width-10\">\r\n                                <checkbox ng-model=\"$ctrl.selectedUser.allowEditViolations\"\r\n                                          on-change=\"this.$parent.$parent.$ctrl.onChangeUserPermissions(value)\">\r\n                                </checkbox>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-row margin-bottom-20\">\r\n                            <div class=\"width-5 margin-right-10\"><i class=\"fa fa-check-square-o\"></i></div>\r\n                            <div class=\"width-85 form-text padding-right-10\">Пользователь может утверждать технологические нарушения</div>\r\n                            <div class=\"width-10\">\r\n                                <checkbox ng-model=\"this.$parent.$parent.$ctrl.selectedUser.allowConfirmViolations\"\r\n                                          on-change=\"this.$parent.$parent.$ctrl.onChangeUserPermissions(value)\">\r\n                                </checkbox>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-row margin-bottom-20\">\r\n                            <div class=\"width-5 margin-right-10\"><i class=\"fa fa-file-o\"></i></div>\r\n                            <div class=\"width-85 form-text padding-right-10\">Пользователь может добавлять документы к технологическим нарушениям</div>\r\n                            <div class=\"width-10\">\r\n                                <checkbox ng-model=\"this.$parent.$parent.$ctrl.selectedUser.allowAddFiles\"\r\n                                          on-change=\"this.$parent.$parent.$ctrl.onChangeUserPermissions(value)\">\r\n                                </checkbox>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-row margin-bottom-20\">\r\n                            <div class=\"width-5 margin-right-10\"><i class=\"fa fa-trash-o\"></i></div>\r\n                            <div class=\"width-85 form-text padding-right-10\">Пользователь может удалять документы в технологических нарушениях</div>\r\n                            <div class=\"width-10\">\r\n                                <checkbox ng-model=\"this.$parent.$parent.$ctrl.selectedUser.allowDeleteFiles\"\r\n                                          on-change=\"this.$parent.$parent.$ctrl.onChangeUserPermissions(value)\">\r\n                                </checkbox>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-row\">\r\n                            <div class=\"width-5 margin-right-10\"><i class=\"fa fa-user-o\"></i></div>\r\n                            <div class=\"width-85 form-text padding-right-10\">Пользователь является администратором</div>\r\n                            <div class=\"width-10\">\r\n                                <checkbox ng-model=\"this.$parent.$parent.$ctrl.selectedUser.isAdministrator\"\r\n                                          on-change=\"this.$parent.$parent.$ctrl.onChangeUserPermissions(value)\">\r\n                                </checkbox>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </tab>\r\n            </tabs>\r\n        </modal-content>\r\n        <modal-footer>\r\n            <div class=\"row padding-10\">\r\n                <div class=\"width-50 padding-right-5\">\r\n                    <button type=\"submit\" class=\"green width-100\" title=\"Сохранить изменения\" ng-disabled=\"$ctrl.editUserForm.$pristine || ($ctrl.editUserForm.$invalid && $ctrl.editUserForm.$dirty)\" ng-click=\"this.$parent.$parent.$ctrl.saveChangedUser()\">Сохранить</button>\r\n                </div>\r\n                <div class=\"width-50 padding-left-5\">\r\n                    <button type=\"button\" class=\"red width-100\" title=\"Отмена\" ng-click=\"this.$parent.$parent.$ctrl.closeEditUserModal()\">Отмена</button>\r\n                </div>\r\n            </div>\r\n        </modal-footer>\r\n    </modal>\r\n\r\n\r\n    <!-- Модальное окно добавления нового пользователя -->\r\n    <modal id=\"new-user-modal\"\r\n           label=\"управление пользователями\"\r\n           caption=\"Новый пользователь\"\r\n           description=\"Заполните информацию о новом пользователе\"\r\n           icon=\"fa-user\"\r\n           width=\"500\"\r\n           depth=\"1\"\r\n           full-screen-on-mobile=\"true\"\r\n           on-close=\"$ctrl.closeNewUserModal()\">\r\n        <modal-content>\r\n            <tabs id=\"new-user-tabs\">\r\n                <tab id=\"new-user-info\" title=\"Личные данные\" width=\"50%\">\r\n                    <div class=\"row padding-20 padding-top-5 padding-bottom-10\">\r\n                        <form name=\"newUserForm\" ng-submit=\"this.$parent.$parent.$ctrl.addUser()\" novalidate>\r\n                            <div class=\"row margin-bottom-10\" ng-init=\"this.$parent.$parent.$ctrl.newUserForm = newUserForm\">\r\n                                <label for=\"new-user-surname\" class=\"width-100\">\r\n                                    Фамилия\r\n                                    <span class=\"form-error margin-left-20\" ng-show=\"newUserForm.surname.$dirty && newUserForm.surname.$invalid\"><i class=\"fa fa-exclamation-circle\"></i>Вы не указали фамилию</span>\r\n                                </label>\r\n                                <input type=\"text\"\r\n                                       name=\"surname\"\r\n                                       id=\"new-user-surname\"\r\n                                       class=\"width-100\"\r\n                                       placeholder=\"Введите фамилию\"\r\n                                       required\r\n                                       ng-model=\"$ctrl.newUser.surname\">\r\n                            </div>\r\n                            <div class=\"row margin-bottom-10\">\r\n                                <label for=\"selected-user-name\">\r\n                                    Имя\r\n                                    <span class=\"form-error margin-left-20\" ng-show=\"newUserForm.name.$dirty && newUserForm.name.$invalid\"><i class=\"fa fa-exclamation-circle\"></i>Вы не указали имя</span>\r\n                                </label>\r\n                                <input type=\"text\"\r\n                                       name=\"name\"\r\n                                       id=\"new-user-name\"\r\n                                       class=\"width-100\"\r\n                                       placeholder=\"Введите имя\"\r\n                                       required\r\n                                       ng-model=\"$ctrl.newUser.name\">\r\n                            </div>\r\n                            <div class=\"row margin-bottom-10\">\r\n                                <label for=\"selected-user-fname\">Отчество</label>\r\n                                <input type=\"text\"\r\n                                       name=\"fname\"\r\n                                       id=\"new-user-fname\"\r\n                                       class=\"width-100\"\r\n                                       placeholder=\"Введите отчество\"\r\n                                       ng-model=\"$ctrl.newUser.fname\">\r\n                            </div>\r\n                            <div class=\"row margin-bottom-10\">\r\n                                <label for=\"new-user-division\">Структурное подразделение</label>\r\n                                <div class=\"combined-input\">\r\n                                    <input type=\"text\"\r\n                                           name=\"email\"\r\n                                           id=\"new-user-division\"\r\n                                           class=\"width-100\"\r\n                                           placeholder=\"Выберите структурное подразделение\"\r\n                                           disabled\r\n                                           ng-model=\"$ctrl.divisions.getDivisionById($ctrl.newUser.divisionId).titleShort\">\r\n                                    <button type=\"button\" title=\"Выбрать структурное подразделение\" ng-click=\"this.$parent.$parent.$ctrl.openEditUserDivisionsModal()\"><i class=\"fa fa-building\"></i></button>\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"row margin-bottom-10\">\r\n                                <label for=\"new-user-position\">Должность</label>\r\n                                <input type=\"text\"\r\n                                       name=\"position\"\r\n                                       id=\"new-user-position\"\r\n                                       class=\"width-100\"\r\n                                       placeholder=\"Введите должность\"\r\n                                       ng-model=\"$ctrl.newUser.position\">\r\n                            </div>\r\n                            <div class=\"row margin-bottom-10\">\r\n                                <label for=\"new-user-email\">E-mail</label>\r\n                                <input type=\"text\"\r\n                                       name=\"email\"\r\n                                       id=\"new-user-email\"\r\n                                       class=\"width-100\"\r\n                                       placeholder=\"Введите e-mail\"\r\n                                       ng-model=\"$ctrl.newUser.email\">\r\n                            </div>\r\n                            <div class=\"row margin-bottom-10\">\r\n                                <label for=\"new-user-account\">\r\n                                    Учетная запись Active Directory\r\n                                    <span class=\"form-error margin-left-20\" ng-show=\"newUserForm.account.$dirty && newUserForm.account.$invalid\"><i class=\"fa fa-exclamation-circle\"></i>Вы не указали учетную запись</span>\r\n                                </label>\r\n                                <input type=\"text\"\r\n                                       name=\"account\"\r\n                                       id=\"new-user-account\"\r\n                                       class=\"width-100\"\r\n                                       placeholder=\"Введите учетную запись\"\r\n                                       required\r\n                                       ng-model=\"$ctrl.newUser.account\">\r\n                            </div>\r\n                        </form>\r\n                    </div>\r\n                </tab>\r\n                <tab id=\"new-user-permissions\" title=\"Права доступа\" width=\"50%\">\r\n                    <div class=\"row padding-20\">\r\n                        <div class=\"form-row margin-top-10 margin-bottom-20\">\r\n                            <div class=\"width-5 margin-right-10\"><i class=\"fa fa-pencil-square-o\"></i></div>\r\n                            <div class=\"width-85 form-text padding-right-10\">Пользователь может редактировать информацию о технологических нарушениях</div>\r\n                            <div class=\"width-10\">\r\n                                <checkbox ng-model=\"$ctrl.newUser.allowEditViolations\">\r\n                                </checkbox>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-row margin-bottom-20\">\r\n                            <div class=\"width-5 margin-right-10\"><i class=\"fa fa-check-square-o\"></i></div>\r\n                            <div class=\"width-85 form-text padding-right-10\">Пользователь может утверждать технологические нарушения</div>\r\n                            <div class=\"width-10\">\r\n                                <checkbox ng-model=\"this.$parent.$parent.$ctrl.newUser.allowConfirmViolations\">\r\n                                </checkbox>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-row margin-bottom-20\">\r\n                            <div class=\"width-5 margin-right-10\"><i class=\"fa fa-file-o\"></i></div>\r\n                            <div class=\"width-85 form-text padding-right-10\">Пользователь может добавлять документы к технологическим нарушениям</div>\r\n                            <div class=\"width-10\">\r\n                                <checkbox ng-model=\"this.$parent.$parent.$ctrl.newUser.allowAddFiles\">\r\n                                </checkbox>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-row margin-bottom-20\">\r\n                            <div class=\"width-5 margin-right-10\"><i class=\"fa fa-trash-o\"></i></div>\r\n                            <div class=\"width-85 form-text padding-right-10\">Пользователь может удалять документы в технологических нарушениях</div>\r\n                            <div class=\"width-10\">\r\n                                <checkbox ng-model=\"this.$parent.$parent.$ctrl.newUser.allowDeleteFiles\">\r\n                                </checkbox>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"form-row\">\r\n                            <div class=\"width-5 margin-right-10\"><i class=\"fa fa-user-o\"></i></div>\r\n                            <div class=\"width-85 form-text padding-right-10\">Пользователь является администратором</div>\r\n                            <div class=\"width-10\">\r\n                                <checkbox ng-model=\"this.$parent.$parent.$ctrl.newUser.isAdministrator\">\r\n                                </checkbox>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </tab>\r\n            </tabs>\r\n        </modal-content>\r\n        <modal-footer>\r\n            <div class=\"row padding-10\">\r\n                <div class=\"width-50 padding-right-5\">\r\n                    <button type=\"submit\" class=\"green width-100\" title=\"Сохранить изменения\" ng-disabled=\"$ctrl.newUserForm.$pristine || ($ctrl.newUserForm.$invalid && $ctrl.newUserForm.$dirty)\" ng-click=\"this.$parent.$parent.$ctrl.addUser()\">Сохранить</button>\r\n                </div>\r\n                <div class=\"width-50 padding-left-5\">\r\n                    <button type=\"button\" class=\"red width-100\" title=\"Отмена\" ng-click=\"this.$parent.$parent.$ctrl.closeNewUserModal()\">Отмена</button>\r\n                </div>\r\n            </div>\r\n        </modal-footer>\r\n    </modal>\r\n\r\n\r\n</div>\r\n\r\n\r\n\r\n"
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"violation-component\">\r\n    VIOLATION\r\n</div>\r\n"
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports) {
+
+module.exports = ""
 
 /***/ })
-],[16]);
+],[27]);

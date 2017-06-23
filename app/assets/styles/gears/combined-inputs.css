@@ -15,3 +15,11 @@
 .combined-input button:last-child {
   justify-content: flex-end;
 }
+.combined-input .fa {
+  margin-right: 10px;
+  align-self: center;
+  font-size: 18px;
+}
+.combined-input .fa.big {
+  font-size: 22px;
+}
