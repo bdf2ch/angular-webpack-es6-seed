@@ -31,6 +31,9 @@ body {
   bottom: 0px;
   box-sizing: border-box;
 }
+#app-wrapper #app-content-wrapper {
+  min-height: 100%;
+}
 /* Target landscape smartphones, portrait tablets, narrow desktops */
 @media screen and (min-width: 320px) and (max-width: 800px) {
   #app-header {
